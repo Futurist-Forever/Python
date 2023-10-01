@@ -63,7 +63,7 @@ def semi_perfect(number: int) -> bool:
     """
     values = factors(number)
     r = len(values)
-    subset = [[0 for i in range(number + 1)] for j in range(r + 1)]
+    subset = [[0 for _ in range(number + 1)] for _ in range(r + 1)]
     for i in range(r + 1):
         subset[i][0] = True
 

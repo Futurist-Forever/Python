@@ -15,9 +15,7 @@ https://en.wikipedia.org/wiki/Carmichael_number
 def gcd(a: int, b: int) -> int:
     if a < b:
         return gcd(b, a)
-    if a % b == 0:
-        return b
-    return gcd(b, a % b)
+    return b if a % b == 0 else gcd(b, a % b)
 
 
 def power(x: int, y: int, mod: int) -> int:
@@ -31,12 +29,7 @@ def power(x: int, y: int, mod: int) -> int:
 
 
 def is_carmichael_number(n: int) -> bool:
-    b = 2
-    while b < n:
-        if gcd(b, n) == 1 and power(b, n - 1, n) != 1:
-            return False
-        b += 1
-    return True
+    return not any(gcd(b, n) == 1 and power(b, n - 1, n) != 1 for b in range(2, n))
 
 
 if __name__ == "__main__":

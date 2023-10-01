@@ -56,7 +56,7 @@ class Entity:
         self.remaining_reproduction_time = (
             PREY_REPRODUCTION_TIME if prey else PREDATOR_REPRODUCTION_TIME
         )
-        self.energy_value = None if prey is True else PREDATOR_INITIAL_ENERGY_VALUE
+        self.energy_value = None if prey else PREDATOR_INITIAL_ENERGY_VALUE
         self.alive = True
 
     def reset_reproduction_time(self) -> None:
@@ -317,11 +317,9 @@ class WaTor:
             "W": (row, col - 1),  # West
             "E": (row, col + 1),  # East
         }
-        # Weight adjacent locations
-        adjacent: list[tuple[int, int]] = []
-        for order in direction_orders:
-            adjacent.append(adjacent_squares[order])
-
+        adjacent: list[tuple[int, int]] = [
+            adjacent_squares[order] for order in direction_orders
+        ]
         for r, c in adjacent:
             if (
                 0 <= r < self.height
@@ -519,7 +517,7 @@ def visualise(wt: WaTor, iter_number: int, *, colour: bool = True) -> None:
             if entity is None:
                 output += " . "
             else:
-                if colour is True:
+                if colour:
                     output += (
                         "\x1b[38;2;96;241;151m"
                         if entity.prey

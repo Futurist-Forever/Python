@@ -63,7 +63,7 @@ def count_inversions_recursive(arr):
     if len(arr) <= 1:
         return arr, 0
     mid = len(arr) // 2
-    p = arr[0:mid]
+    p = arr[:mid]
     q = arr[mid:]
 
     a, inversion_p = count_inversions_recursive(p)

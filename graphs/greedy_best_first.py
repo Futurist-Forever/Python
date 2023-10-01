@@ -140,9 +140,7 @@ class GreedyBestFirst:
                 if child_node not in self.open_nodes:
                     self.open_nodes.append(child_node)
 
-        if not self.reached:
-            return [self.start.pos]
-        return None
+        return [self.start.pos] if not self.reached else None
 
     def get_successors(self, parent: Node) -> list[Node]:
         """
@@ -190,8 +188,7 @@ if __name__ == "__main__":
         print("------")
 
         greedy_bf = GreedyBestFirst(grid, init, goal)
-        path = greedy_bf.search()
-        if path:
+        if path := greedy_bf.search():
             for pos_x, pos_y in path:
                 grid[pos_x][pos_y] = 2
 

@@ -19,9 +19,8 @@ def rabin_miller(num: int) -> bool:
             while v != (num - 1):
                 if i == t - 1:
                     return False
-                else:
-                    i = i + 1
-                    v = (v**2) % num
+                i = i + 1
+                v = (v**2) % num
     return True
 
 

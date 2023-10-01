@@ -8,10 +8,7 @@ def _input(message):
 def initialize_unweighted_directed_graph(
     node_count: int, edge_count: int
 ) -> dict[int, list[int]]:
-    graph: dict[int, list[int]] = {}
-    for i in range(node_count):
-        graph[i + 1] = []
-
+    graph: dict[int, list[int]] = {i + 1: [] for i in range(node_count)}
     for e in range(edge_count):
         x, y = (int(i) for i in _input(f"Edge {e + 1}: <node1> <node2> "))
         graph[x].append(y)
@@ -21,10 +18,7 @@ def initialize_unweighted_directed_graph(
 def initialize_unweighted_undirected_graph(
     node_count: int, edge_count: int
 ) -> dict[int, list[int]]:
-    graph: dict[int, list[int]] = {}
-    for i in range(node_count):
-        graph[i + 1] = []
-
+    graph: dict[int, list[int]] = {i + 1: [] for i in range(node_count)}
     for e in range(edge_count):
         x, y = (int(i) for i in _input(f"Edge {e + 1}: <node1> <node2> "))
         graph[x].append(y)
@@ -35,10 +29,9 @@ def initialize_unweighted_undirected_graph(
 def initialize_weighted_undirected_graph(
     node_count: int, edge_count: int
 ) -> dict[int, list[tuple[int, int]]]:
-    graph: dict[int, list[tuple[int, int]]] = {}
-    for i in range(node_count):
-        graph[i + 1] = []
-
+    graph: dict[int, list[tuple[int, int]]] = {
+        i + 1: [] for i in range(node_count)
+    }
     for e in range(edge_count):
         x, y, w = (int(i) for i in _input(f"Edge {e + 1}: <node1> <node2> <weight> "))
         graph[x].append((y, w))
@@ -186,9 +179,7 @@ def topo(g, ind=None, q=None):
 
 def adjm():
     n = input().strip()
-    a = []
-    for _ in range(n):
-        a.append(map(int, input().strip().split()))
+    a = [map(int, input().strip().split()) for _ in range(n)]
     return a, n
 
 
@@ -208,7 +199,7 @@ def adjm():
 def floy(a_and_n):
     (a, n) = a_and_n
     dist = list(a)
-    path = [[0] * n for i in range(n)]
+    path = [[0] * n for _ in range(n)]
     for k in range(n):
         for i in range(n):
             for j in range(n):
@@ -261,9 +252,7 @@ def prim(g, s):
 
 def edglist():
     n, m = map(int, input().split(" "))
-    edges = []
-    for _ in range(m):
-        edges.append(map(int, input().split(" ")))
+    edges = [map(int, input().split(" ")) for _ in range(m)]
     return edges, n
 
 
@@ -301,8 +290,4 @@ def krusk(e_and_n):
 
 # find the isolated node in the graph
 def find_isolated_nodes(graph):
-    isolated = []
-    for node in graph:
-        if not graph[node]:
-            isolated.append(node)
-    return isolated
+    return [node for node in graph if not graph[node]]

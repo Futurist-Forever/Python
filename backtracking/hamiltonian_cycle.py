@@ -43,7 +43,7 @@ def valid_connection(
         return False
 
     # 2. Validate that next vertex is not already in path
-    return not any(vertex == next_ver for vertex in path)
+    return next_ver not in path
 
 
 def util_hamilton_cycle(graph: list[list[int]], path: list[int], curr_ind: int) -> bool:

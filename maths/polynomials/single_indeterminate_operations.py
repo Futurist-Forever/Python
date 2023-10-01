@@ -94,9 +94,10 @@ class Polynomial:
         >>> p.evaluate(2)
         17
         """
-        result: int | float = 0
-        for i in range(self.degree + 1):
-            result += self.coefficients[i] * (substitution**i)
+        result: int | float = sum(
+            self.coefficients[i] * (substitution**i)
+            for i in range(self.degree + 1)
+        )
         return result
 
     def __str__(self) -> str:
@@ -118,9 +119,9 @@ class Polynomial:
             if i == 0:
                 polynomial += str(abs(self.coefficients[i]))
             elif i == 1:
-                polynomial += str(abs(self.coefficients[i])) + "x"
+                polynomial += f"{str(abs(self.coefficients[i]))}x"
             else:
-                polynomial += str(abs(self.coefficients[i])) + "x^" + str(i)
+                polynomial += f"{str(abs(self.coefficients[i]))}x^{str(i)}"
 
         return polynomial
 
@@ -171,11 +172,10 @@ class Polynomial:
         if self.degree != polynomial_2.degree:
             return False
 
-        for i in range(self.degree + 1):
-            if self.coefficients[i] != polynomial_2.coefficients[i]:
-                return False
-
-        return True
+        return all(
+            self.coefficients[i] == polynomial_2.coefficients[i]
+            for i in range(self.degree + 1)
+        )
 
     def __ne__(self, polynomial_2: object) -> bool:
         """

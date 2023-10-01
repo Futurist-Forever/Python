@@ -33,9 +33,7 @@ def encrypt(input_string: str, key: int) -> str:
         num = min(num, lowest * 2 - num)  # creates zigzag pattern
         temp_grid[num].append(character)
     grid = ["".join(row) for row in temp_grid]
-    output_string = "".join(grid)
-
-    return output_string
+    return "".join(grid)
 
 
 def decrypt(input_string: str, key: int) -> str:
@@ -90,10 +88,10 @@ def bruteforce(input_string: str) -> dict[int, str]:
     >>> bruteforce("HWe olordll")[4]
     'Hello World'
     """
-    results = {}
-    for key_guess in range(1, len(input_string)):  # tries every key
-        results[key_guess] = decrypt(input_string, key_guess)
-    return results
+    return {
+        key_guess: decrypt(input_string, key_guess)
+        for key_guess in range(1, len(input_string))
+    }
 
 
 if __name__ == "__main__":

@@ -84,7 +84,7 @@ def generate_final_scores(score_lists: list[list[float]]) -> list[float]:
     [2.0, 1.0, 1.3333333333333335]
     """
     # initialize final scores
-    final_scores: list[float] = [0 for i in range(len(score_lists[0]))]
+    final_scores: list[float] = [0 for _ in range(len(score_lists[0]))]
 
     for slist in score_lists:
         for j, ele in enumerate(slist):

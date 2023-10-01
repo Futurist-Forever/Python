@@ -4,11 +4,7 @@ from __future__ import annotations
 
 def __encrypt_part(message_part: str, character_to_number: dict[str, str]) -> str:
     one, two, three = "", "", ""
-    tmp = []
-
-    for character in message_part:
-        tmp.append(character_to_number[character])
-
+    tmp = [character_to_number[character] for character in message_part]
     for each in tmp:
         one += each[0]
         two += each[1]
@@ -114,18 +110,11 @@ def decrypt_message(
         message, alphabet
     )
     decrypted_numeric = []
-    decrypted = ""
-
     for i in range(0, len(message) + 1, period):
         a, b, c = __decrypt_part(message[i : i + period], character_to_number)
 
-        for j in range(len(a)):
-            decrypted_numeric.append(a[j] + b[j] + c[j])
-
-    for each in decrypted_numeric:
-        decrypted += number_to_character[each]
-
-    return decrypted
+        decrypted_numeric.extend(a[j] + b[j] + c[j] for j in range(len(a)))
+    return "".join(number_to_character[each] for each in decrypted_numeric)
 
 
 if __name__ == "__main__":

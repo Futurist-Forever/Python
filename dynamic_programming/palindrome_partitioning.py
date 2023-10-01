@@ -22,7 +22,7 @@ def find_minimum_partitions(string: str) -> int:
     """
     length = len(string)
     cut = [0] * length
-    is_palindromic = [[False for i in range(length)] for j in range(length)]
+    is_palindromic = [[False for _ in range(length)] for _ in range(length)]
     for i, c in enumerate(string):
         mincut = i
         for j in range(i + 1):

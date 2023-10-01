@@ -11,9 +11,7 @@ on the current day is less than or equal to its price on the given day.
 def calculation_span(price, s):
     n = len(price)
     # Create a stack and push index of fist element to it
-    st = []
-    st.append(0)
-
+    st = [0]
     # Span value of first element is always 1
     s[0] = 1
 
@@ -21,7 +19,7 @@ def calculation_span(price, s):
     for i in range(1, n):
         # Pop elements from stack while stack is not
         # empty and top of stack is smaller than price[i]
-        while len(st) > 0 and price[st[0]] <= price[i]:
+        while st and price[st[0]] <= price[i]:
             st.pop()
 
         # If stack becomes empty, then price[i] is greater
@@ -42,7 +40,7 @@ def print_array(arr, n):
 
 # Driver program to test above function
 price = [10, 4, 5, 90, 120, 80]
-S = [0 for i in range(len(price) + 1)]
+S = [0 for _ in range(len(price) + 1)]
 
 # Fill the span values in array S[]
 calculation_span(price, S)

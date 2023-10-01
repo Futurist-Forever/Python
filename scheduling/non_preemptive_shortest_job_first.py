@@ -44,14 +44,13 @@ def calculate_waitingtime(
     # The shortest process in the ready_process, target_process is executed.
 
     while completed != no_of_processes:
-        ready_process = []
         target_process = -1
 
-        for i in range(no_of_processes):
-            if (arrival_time[i] <= total_time) and (remaining_time[i] > 0):
-                ready_process.append(i)
-
-        if len(ready_process) > 0:
+        if ready_process := [
+            i
+            for i in range(no_of_processes)
+            if (arrival_time[i] <= total_time) and (remaining_time[i] > 0)
+        ]:
             target_process = ready_process[0]
             for i in ready_process:
                 if remaining_time[i] < remaining_time[target_process]:

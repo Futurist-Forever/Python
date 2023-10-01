@@ -35,8 +35,7 @@ def validate(*values: float) -> bool:
     >>> validate()
     False
     """
-    result = len(values) > 0 and all(value > 0.0 for value in values)
-    return result
+    return len(values) > 0 and all(value > 0.0 for value in values)
 
 
 def effusion_ratio(molar_mass_1: float, molar_mass_2: float) -> float | ValueError:

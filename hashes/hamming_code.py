@@ -113,14 +113,10 @@ def emitter_converter(size_par, data):
         else:
             data_ord.append(None)
 
-    # Calculates parity
-    qtd_bp = 0  # parity bit counter
     for bp in range(1, size_par + 1):
         # Bit counter one for a given parity
         cont_bo = 0
-        # counter to control the loop reading
-        cont_loop = 0
-        for x in data_ord:
+        for cont_loop, x in enumerate(data_ord):
             if x is not None:
                 try:
                     aux = (bin_pos[cont_loop])[-1 * (bp)]
@@ -128,10 +124,7 @@ def emitter_converter(size_par, data):
                     aux = "0"
                 if aux == "1" and x == "1":
                     cont_bo += 1
-            cont_loop += 1
         parity.append(cont_bo % 2)
-
-        qtd_bp += 1
 
     # Mount the message
     cont_bp = 0  # parity bit counter
@@ -206,14 +199,10 @@ def receptor_converter(size_par, data):
         else:
             data_ord.append(None)
 
-    # Calculates parity
-    qtd_bp = 0  # parity bit counter
     for bp in range(1, size_par + 1):
         # Bit counter one for a certain parity
         cont_bo = 0
-        # Counter to control loop reading
-        cont_loop = 0
-        for x in data_ord:
+        for cont_loop, x in enumerate(data_ord):
             if x is not None:
                 try:
                     aux = (bin_pos[cont_loop])[-1 * (bp)]
@@ -221,10 +210,7 @@ def receptor_converter(size_par, data):
                     aux = "0"
                 if aux == "1" and x == "1":
                     cont_bo += 1
-            cont_loop += 1
         parity.append(str(cont_bo % 2))
-
-        qtd_bp += 1
 
     # Mount the message
     cont_bp = 0  # Parity bit counter

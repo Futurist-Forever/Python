@@ -120,14 +120,7 @@ def get_prime_numbers(n):
     # precondition
     assert isinstance(n, int) and (n > 2), "'N' must been an int and > 2"
 
-    ans = []
-
-    # iterates over all numbers between 2 up to N+1
-    # if a number is prime then appends to list 'ans'
-    for number in range(2, n + 1):
-        if is_prime(number):
-            ans.append(number)
-
+    ans = [number for number in range(2, n + 1) if is_prime(number)]
     # precondition
     assert isinstance(ans, list), "'ans' must been from type list"
 
@@ -154,20 +147,16 @@ def prime_factorization(number):
 
     quotient = number
 
-    if number in {0, 1}:
+    if number in {0, 1} or number not in {0, 1} and is_prime(number):
         ans.append(number)
 
-    # if 'number' not prime then builds the prime factorization of 'number'
-    elif not is_prime(number):
+    else:
         while quotient != 1:
             if is_prime(factor) and (quotient % factor == 0):
                 ans.append(factor)
                 quotient /= factor
             else:
                 factor += 1
-
-    else:
-        ans.append(number)
 
     # precondition
     assert isinstance(ans, list), "'ans' must been from type list"
@@ -295,9 +284,7 @@ def goldbach(number):
         while j < len_pn and loop:
             if prime_numbers[i] + prime_numbers[j] == number:
                 loop = False
-                ans.append(prime_numbers[i])
-                ans.append(prime_numbers[j])
-
+                ans.extend((prime_numbers[i], prime_numbers[j]))
             j += 1
 
         i += 1
@@ -491,7 +478,7 @@ def get_primes_between(p_number_1, p_number_2):
     assert (
         isinstance(ans, list)
         and ans[0] != p_number_1
-        and ans[len(ans) - 1] != p_number_2
+        and ans[-1] != p_number_2
     ), "'ans' must been a list without the arguments"
 
     # 'ans' contains not 'pNumber1' and 'pNumber2' !
@@ -510,14 +497,9 @@ def get_divisors(n):
     # precondition
     assert isinstance(n, int) and (n >= 1), "'n' must been int and >= 1"
 
-    ans = []  # will be returned.
-
-    for divisor in range(1, n + 1):
-        if n % divisor == 0:
-            ans.append(divisor)
-
+    ans = [divisor for divisor in range(1, n + 1) if n % divisor == 0]
     # precondition
-    assert ans[0] == 1 and ans[len(ans) - 1] == n, "Error in function getDivisiors(...)"
+    assert ans[0] == 1 and ans[-1] == n, "Error in function getDivisiors(...)"
 
     return ans
 

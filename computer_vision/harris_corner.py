@@ -14,7 +14,7 @@ class HarrisCorner:
         window_size : neighbourhoods considered
         """
 
-        if k in (0.04, 0.06):
+        if k in {0.04, 0.06}:
             self.k = k
             self.window_size = window_size
         else:

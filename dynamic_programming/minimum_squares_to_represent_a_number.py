@@ -24,8 +24,6 @@ def minimum_squares_to_represent_a_number(number: int) -> int:
         ...
     ValueError: the value of input must be a natural number
     """
-    if number != int(number):
-        raise ValueError("the value of input must be a natural number")
     if number < 0:
         raise ValueError("the value of input must not be a negative number")
     if number == 0:

@@ -223,17 +223,15 @@ class TestGraphAdjacencyList(unittest.TestCase):
         self.assertTrue(edge_pick_count <= len(vertices))
 
         random_source_vertices: list[int] = random.sample(
-            vertices[0 : int(len(vertices) / 2)], edge_pick_count
+            vertices[: len(vertices) // 2], edge_pick_count
         )
         random_destination_vertices: list[int] = random.sample(
-            vertices[int(len(vertices) / 2) :], edge_pick_count
+            vertices[len(vertices) // 2 :], edge_pick_count
         )
         random_edges: list[list[int]] = []
 
         for source in random_source_vertices:
-            for dest in random_destination_vertices:
-                random_edges.append([source, dest])
-
+            random_edges.extend([source, dest] for dest in random_destination_vertices)
         return random_edges
 
     def __generate_graphs(
@@ -403,9 +401,12 @@ class TestGraphAdjacencyList(unittest.TestCase):
         all_possible_edges: list[list[int]] = []
         for i in range(vertex_count - 1):
             for j in range(i + 1, vertex_count):
-                all_possible_edges.append([random_vertices[i], random_vertices[j]])
-                all_possible_edges.append([random_vertices[j], random_vertices[i]])
-
+                all_possible_edges.extend(
+                    (
+                        [random_vertices[i], random_vertices[j]],
+                        [random_vertices[j], random_vertices[i]],
+                    )
+                )
         # test contains_edge function
         for edge in all_possible_edges:
             if edge in random_edges:

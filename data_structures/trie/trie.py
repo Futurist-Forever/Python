@@ -109,7 +109,7 @@ def test_trie() -> bool:
 
 
 def print_results(msg: str, passes: bool) -> None:
-    print(str(msg), "works!" if passes else "doesn't work :(")
+    print(msg, "works!" if passes else "doesn't work :(")
 
 
 def pytests() -> None:

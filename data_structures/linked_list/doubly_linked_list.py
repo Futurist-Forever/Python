@@ -194,7 +194,7 @@ def test_doubly_linked_list() -> None:
     """
     linked_list = DoublyLinkedList()
     assert linked_list.is_empty() is True
-    assert str(linked_list) == ""
+    assert not str(linked_list)
 
     try:
         linked_list.delete_head()

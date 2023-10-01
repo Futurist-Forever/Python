@@ -53,13 +53,14 @@ def next_term(a_i, k, i, n):
         jumps = sub_memo.get(c)
 
         if jumps is not None and len(jumps) > 0:
-            # find and make the largest jump without going over
-            max_jump = -1
-            for _k in range(len(jumps) - 1, -1, -1):
-                if jumps[_k][2] <= k and jumps[_k][1] <= max_dn:
-                    max_jump = _k
-                    break
-
+            max_jump = next(
+                (
+                    _k
+                    for _k in range(len(jumps) - 1, -1, -1)
+                    if jumps[_k][2] <= k and jumps[_k][1] <= max_dn
+                ),
+                -1,
+            )
             if max_jump >= 0:
                 diff, dn, _kk = jumps[max_jump]
                 # since the difference between jumps is cached, add c
@@ -191,10 +192,7 @@ def solution(n: int = 10**15) -> int:
         if dn == n - i:
             break
 
-    a_n = 0
-    for j in range(len(digits)):
-        a_n += digits[j] * 10**j
-    return a_n
+    return sum(digits[j] * 10**j for j in range(len(digits)))
 
 
 if __name__ == "__main__":

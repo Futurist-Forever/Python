@@ -56,13 +56,10 @@ class DenseLayer:
             self.activation = sigmoid
 
     def cal_gradient(self):
-        # activation function may be sigmoid or linear
-        if self.activation == sigmoid:
-            gradient_mat = np.dot(self.output, (1 - self.output).T)
-            gradient_activation = np.diag(np.diag(gradient_mat))
-        else:
-            gradient_activation = 1
-        return gradient_activation
+        if self.activation != sigmoid:
+            return 1
+        gradient_mat = np.dot(self.output, (1 - self.output).T)
+        return np.diag(np.diag(gradient_mat))
 
     def forward_propagation(self, xdata):
         self.xdata = xdata

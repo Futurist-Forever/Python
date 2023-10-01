@@ -49,11 +49,10 @@ def is_prime(number: int) -> bool:
         # Negatives, 0, 1, all even numbers, all multiples of 3 are not primes
         return False
 
-    # All primes number are in format of 6k +/- 1
-    for i in range(5, int(math.sqrt(number) + 1), 6):
-        if number % i == 0 or number % (i + 2) == 0:
-            return False
-    return True
+    return not any(
+        number % i == 0 or number % (i + 2) == 0
+        for i in range(5, int(math.sqrt(number) + 1), 6)
+    )
 
 
 def list_truncated_nums(n: int) -> list[int]:
@@ -69,8 +68,7 @@ def list_truncated_nums(n: int) -> list[int]:
     str_num = str(n)
     list_nums = [n]
     for i in range(1, len(str_num)):
-        list_nums.append(int(str_num[i:]))
-        list_nums.append(int(str_num[:-i]))
+        list_nums.extend((int(str_num[i:]), int(str_num[:-i])))
     return list_nums
 
 

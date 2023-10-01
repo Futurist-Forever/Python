@@ -26,7 +26,7 @@ def abs_min(x: list[int]) -> int:
         ...
     ValueError: abs_min() arg is an empty sequence
     """
-    if len(x) == 0:
+    if not x:
         raise ValueError("abs_min() arg is an empty sequence")
     j = x[0]
     for i in x:
@@ -46,7 +46,7 @@ def abs_max(x: list[int]) -> int:
         ...
     ValueError: abs_max() arg is an empty sequence
     """
-    if len(x) == 0:
+    if not x:
         raise ValueError("abs_max() arg is an empty sequence")
     j = x[0]
     for i in x:
@@ -66,7 +66,7 @@ def abs_max_sort(x: list[int]) -> int:
         ...
     ValueError: abs_max_sort() arg is an empty sequence
     """
-    if len(x) == 0:
+    if not x:
         raise ValueError("abs_max_sort() arg is an empty sequence")
     return sorted(x, key=abs)[-1]
 

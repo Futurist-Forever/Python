@@ -58,14 +58,12 @@ def select(
     pop = []
     # Generate more children proportionally to the fitness score.
     child_n = int(parent_1[1] * 100) + 1
-    child_n = 10 if child_n >= 10 else child_n
+    child_n = min(child_n, 10)
     for _ in range(child_n):
         parent_2 = population_score[random.randint(0, N_SELECTED)][0]
 
         child_1, child_2 = crossover(parent_1[0], parent_2)
-        # Append new string to the population list.
-        pop.append(mutate(child_1, genes))
-        pop.append(mutate(child_2, genes))
+        pop.extend((mutate(child_1, genes), mutate(child_2, genes)))
     return pop
 
 
@@ -98,17 +96,14 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
     if N_POPULATION < N_SELECTED:
         msg = f"{N_POPULATION} must be bigger than {N_SELECTED}"
         raise ValueError(msg)
-    # Verify that the target contains no genes besides the ones inside genes variable.
-    not_in_genes_list = sorted({c for c in target if c not in genes})
-    if not_in_genes_list:
+    if not_in_genes_list := sorted({c for c in target if c not in genes}):
         msg = f"{not_in_genes_list} is not in genes list, evolution cannot converge"
         raise ValueError(msg)
 
-    # Generate random starting population.
-    population = []
-    for _ in range(N_POPULATION):
-        population.append("".join([random.choice(genes) for i in range(len(target))]))
-
+    population = [
+        "".join([random.choice(genes) for _ in range(len(target))])
+        for _ in range(N_POPULATION)
+    ]
     # Just some logs to know what the algorithms is doing.
     generation, total_population = 0, 0
 

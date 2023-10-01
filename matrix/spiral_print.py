@@ -43,7 +43,7 @@ def spiral_print_clockwise(a: list[list[int]]) -> None:
     6
     7
     """
-    if check_matrix(a) and len(a) > 0:
+    if check_matrix(a) and a:
         a = [list(row) for row in a]
         mat_row = len(a)
         if isinstance(a[0], list):
@@ -66,8 +66,7 @@ def spiral_print_clockwise(a: list[list[int]]) -> None:
         # vertical printing up
         for i in range(mat_row - 2, 0, -1):
             print(a[i][0])
-        remain_mat = [row[1 : mat_col - 1] for row in a[1 : mat_row - 1]]
-        if len(remain_mat) > 0:
+        if remain_mat := [row[1 : mat_col - 1] for row in a[1 : mat_row - 1]]:
             spiral_print_clockwise(remain_mat)
         else:
             return

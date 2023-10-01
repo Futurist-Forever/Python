@@ -44,7 +44,7 @@ def is_prime(number: int) -> bool:
         return False
 
     odd_numbers = range(3, int(math.sqrt(number) + 1), 2)
-    return not any(not number % i for i in odd_numbers)
+    return all(number % i for i in odd_numbers)
 
 
 def next_prime(value, factor=1, **kwargs):
@@ -52,8 +52,6 @@ def next_prime(value, factor=1, **kwargs):
     first_value_val = value
 
     while not is_prime(value):
-        value += 1 if not ("desc" in kwargs and kwargs["desc"] is True) else -1
+        value += 1 if "desc" not in kwargs or kwargs["desc"] is not True else -1
 
-    if value == first_value_val:
-        return next_prime(value + 1, **kwargs)
-    return value
+    return next_prime(value + 1, **kwargs) if value == first_value_val else value

@@ -20,7 +20,7 @@ def slow_primes(max_n: int) -> Generator[int, None, None]:
     >>> list(slow_primes(10000))[-1]
     9973
     """
-    numbers: Generator = (i for i in range(1, (max_n + 1)))
+    numbers: Generator = iter(range(1, (max_n + 1)))
     for i in (n for n in numbers if n > 1):
         for j in range(2, i):
             if (i % j) == 0:
@@ -47,7 +47,7 @@ def primes(max_n: int) -> Generator[int, None, None]:
     >>> list(primes(10000))[-1]
     9973
     """
-    numbers: Generator = (i for i in range(1, (max_n + 1)))
+    numbers: Generator = iter(range(1, (max_n + 1)))
     for i in (n for n in numbers if n > 1):
         # only need to check for factors up to sqrt(i)
         bound = int(math.sqrt(i)) + 1
@@ -76,7 +76,7 @@ def fast_primes(max_n: int) -> Generator[int, None, None]:
     >>> list(fast_primes(10000))[-1]
     9973
     """
-    numbers: Generator = (i for i in range(1, (max_n + 1), 2))
+    numbers: Generator = iter(range(1, (max_n + 1), 2))
     # It's useless to test even numbers as they will not be prime
     if max_n > 2:
         yield 2  # Because 2 will not be tested, it's necessary to yield it now

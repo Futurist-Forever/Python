@@ -36,16 +36,12 @@ def find_secret_passcode(logins: list[str]) -> int:
     unique_chars = {char for login in split_logins for char in login}
 
     for permutation in itertools.permutations(unique_chars):
-        satisfied = True
-        for login in logins:
-            if not (
-                permutation.index(login[0])
-                < permutation.index(login[1])
-                < permutation.index(login[2])
-            ):
-                satisfied = False
-                break
-
+        satisfied = all(
+            permutation.index(login[0])
+            < permutation.index(login[1])
+            < permutation.index(login[2])
+            for login in logins
+        )
         if satisfied:
             return int("".join(permutation))
 

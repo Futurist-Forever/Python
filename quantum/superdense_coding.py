@@ -75,13 +75,13 @@ def superdense_coding(bit_1: int = 1, bit_2: int = 1) -> qiskit.result.counts.Co
     # send the information
     c_information = str(bit_1) + str(bit_2)
 
-    if c_information == "11":
+    if c_information == "01":
         quantum_circuit.x(1)
-        quantum_circuit.z(1)
     elif c_information == "10":
         quantum_circuit.z(1)
-    elif c_information == "01":
+    elif c_information == "11":
         quantum_circuit.x(1)
+        quantum_circuit.z(1)
     else:
         quantum_circuit.i(1)
 

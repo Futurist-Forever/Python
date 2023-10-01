@@ -52,7 +52,7 @@ def bucket_sort(my_list: list, bucket_count: int = 10) -> list:
     True
     """
 
-    if len(my_list) == 0 or bucket_count <= 0:
+    if not my_list or bucket_count <= 0:
         return []
 
     min_value, max_value = min(my_list), max(my_list)

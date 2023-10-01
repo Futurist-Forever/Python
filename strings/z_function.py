@@ -27,7 +27,7 @@ def z_function(input_str: str) -> list[int]:
     >>> z_function("zxxzxxz")
     [0, 0, 0, 4, 0, 0, 1]
     """
-    z_result = [0 for i in range(len(input_str))]
+    z_result = [0 for _ in range(len(input_str))]
 
     # initialize interval's left pointer and right pointer
     left_pointer, right_pointer = 0, 0
@@ -69,19 +69,11 @@ def find_pattern(pattern: str, input_str: str) -> int:
     >>> find_pattern("xz", "zxxzxxz")
     2
     """
-    answer = 0
     # concatenate 'pattern' and 'input_str' and call z_function
     # with concatenated string
     z_result = z_function(pattern + input_str)
 
-    for val in z_result:
-        # if value is greater then length of the pattern string
-        # that means this index is starting position of substring
-        # which is equal to pattern string
-        if val >= len(pattern):
-            answer += 1
-
-    return answer
+    return sum(1 for val in z_result if val >= len(pattern))
 
 
 if __name__ == "__main__":

@@ -20,15 +20,14 @@ def hamming(n_element: int) -> list:
     >>> hamming(15)
     [1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 16, 18, 20, 24]
     """
-    n_element = int(n_element)
+    n_element = n_element
     if n_element < 1:
         my_error = ValueError("a should be a positive number")
         raise my_error
 
     hamming_list = [1]
     i, j, k = (0, 0, 0)
-    index = 1
-    while index < n_element:
+    for _ in range(1, n_element):
         while hamming_list[i] * 2 <= hamming_list[-1]:
             i += 1
         while hamming_list[j] * 3 <= hamming_list[-1]:
@@ -38,7 +37,6 @@ def hamming(n_element: int) -> list:
         hamming_list.append(
             min(hamming_list[i] * 2, hamming_list[j] * 3, hamming_list[k] * 5)
         )
-        index += 1
     return hamming_list
 
 

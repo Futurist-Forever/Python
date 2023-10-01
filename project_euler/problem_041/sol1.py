@@ -48,11 +48,10 @@ def is_prime(number: int) -> bool:
         # Negatives, 0, 1, all even numbers, all multiples of 3 are not primes
         return False
 
-    # All primes number are in format of 6k +/- 1
-    for i in range(5, int(math.sqrt(number) + 1), 6):
-        if number % i == 0 or number % (i + 2) == 0:
-            return False
-    return True
+    return not any(
+        number % i == 0 or number % (i + 2) == 0
+        for i in range(5, int(math.sqrt(number) + 1), 6)
+    )
 
 
 def solution(n: int = 7) -> int:
@@ -69,7 +68,7 @@ def solution(n: int = 7) -> int:
     pandigital_str = "".join(str(i) for i in range(1, n + 1))
     perm_list = [int("".join(i)) for i in permutations(pandigital_str, n)]
     pandigitals = [num for num in perm_list if is_prime(num)]
-    return max(pandigitals) if pandigitals else 0
+    return max(pandigitals, default=0)
 
 
 if __name__ == "__main__":

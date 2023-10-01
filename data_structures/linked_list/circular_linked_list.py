@@ -90,7 +90,7 @@ def test_circular_linked_list() -> None:
     circular_linked_list = CircularLinkedList()
     assert len(circular_linked_list) == 0
     assert circular_linked_list.is_empty() is True
-    assert str(circular_linked_list) == ""
+    assert not str(circular_linked_list)
 
     try:
         circular_linked_list.delete_front()

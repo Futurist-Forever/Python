@@ -45,12 +45,12 @@ def nth_fibonacci_matrix(n: int) -> int:
         return n
     res_matrix = identity(2)
     fibonacci_matrix = [[1, 1], [1, 0]]
-    n = n - 1
+    n -= 1
     while n > 0:
         if n % 2 == 1:
             res_matrix = multiply(res_matrix, fibonacci_matrix)
         fibonacci_matrix = multiply(fibonacci_matrix, fibonacci_matrix)
-        n = int(n / 2)
+        n //= 2
     return res_matrix[0][0]
 
 

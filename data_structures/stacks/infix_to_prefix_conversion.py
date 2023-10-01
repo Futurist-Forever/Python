@@ -26,7 +26,7 @@ def infix_2_postfix(infix):
         "+": 1,
         "-": 1,
     }  # Priority of each operator
-    print_width = len(infix) if (len(infix) > 7) else 7
+    print_width = max(len(infix), 7)
 
     # Print table header for output
     print(
@@ -47,13 +47,10 @@ def infix_2_postfix(infix):
                 post_fix.append(stack.pop())  # Pop stack & add the content to Postfix
             stack.pop()
         else:
-            if len(stack) == 0:
-                stack.append(x)  # If stack is empty, push x to stack
-            else:  # while priority of x is not > priority of element in the stack
-                while len(stack) > 0 and priority[x] <= priority[stack[-1]]:
+            if stack:
+                while stack and priority[x] <= priority[stack[-1]]:
                     post_fix.append(stack.pop())  # pop stack & add to Postfix
-                stack.append(x)  # push x to stack
-
+            stack.append(x)  # If stack is empty, push x to stack
         print(
             x.center(8),
             ("".join(stack)).ljust(print_width),
@@ -61,7 +58,7 @@ def infix_2_postfix(infix):
             sep=" | ",
         )  # Output in tabular format
 
-    while len(stack) > 0:  # while stack is not empty
+    while stack:  # while stack is not empty
         post_fix.append(stack.pop())  # pop stack & add to Postfix
         print(
             " ".center(8),

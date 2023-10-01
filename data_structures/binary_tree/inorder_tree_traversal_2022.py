@@ -43,7 +43,7 @@ def insert(node: BinaryTreeNode | None, new_value: int) -> BinaryTreeNode | None
     return node
 
 
-def inorder(node: None | BinaryTreeNode) -> list[int]:  # if node is None,return
+def inorder(node: None | BinaryTreeNode) -> list[int]:    # if node is None,return
     """
     >>> inorder(make_tree())
     [6, 10, 14, 15, 20, 25, 60]
@@ -51,7 +51,7 @@ def inorder(node: None | BinaryTreeNode) -> list[int]:  # if node is None,return
     if node:
         inorder_array = inorder(node.left_child)
         inorder_array = [*inorder_array, node.data]
-        inorder_array = inorder_array + inorder(node.right_child)
+        inorder_array += inorder(node.right_child)
     else:
         inorder_array = []
     return inorder_array

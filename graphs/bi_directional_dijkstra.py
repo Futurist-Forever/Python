@@ -58,8 +58,6 @@ def bidirectional_dij(
     >>> bidirectional_dij("E", "F", graph_fwd, graph_bwd)
     3
     """
-    shortest_path_distance = -1
-
     visited_forward = set()
     visited_backward = set()
     cst_fwd = {source: 0}
@@ -111,9 +109,7 @@ def bidirectional_dij(
         if cst_fwd[v_fwd] + cst_bwd[v_bwd] >= shortest_distance:
             break
 
-    if shortest_distance != np.inf:
-        shortest_path_distance = shortest_distance
-    return shortest_path_distance
+    return shortest_distance if shortest_distance != np.inf else -1
 
 
 graph_fwd = {

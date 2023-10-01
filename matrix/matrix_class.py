@@ -113,7 +113,7 @@ class Matrix:
             "least one and the same number of values, each of which must be of type "
             "int or float."
         )
-        if len(rows) != 0:
+        if rows:
             cols = len(rows[0])
             if cols == 0:
                 raise error
@@ -221,10 +221,10 @@ class Matrix:
         return Matrix(values)
 
     def inverse(self) -> Matrix:
-        determinant = self.determinant()
-        if not determinant:
+        if determinant := self.determinant():
+            return self.adjugate() * (1 / determinant)
+        else:
             raise TypeError("Only matrices with a non-zero determinant have an inverse")
-        return self.adjugate() * (1 / determinant)
 
     def __repr__(self) -> str:
         return str(self.rows)
@@ -260,7 +260,7 @@ class Matrix:
         if position is None:
             self.rows.append(row)
         else:
-            self.rows = self.rows[0:position] + [row] + self.rows[position:]
+            self.rows = self.rows[:position] + [row] + self.rows[position:]
 
     def add_column(self, column: list[int], position: int | None = None) -> None:
         type_error = TypeError(
@@ -279,15 +279,13 @@ class Matrix:
             self.rows = [self.rows[i] + [column[i]] for i in range(self.num_rows)]
         else:
             self.rows = [
-                self.rows[i][0:position] + [column[i]] + self.rows[i][position:]
+                self.rows[i][:position] + [column[i]] + self.rows[i][position:]
                 for i in range(self.num_rows)
             ]
 
     # MATRIX OPERATIONS
     def __eq__(self, other: object) -> bool:
-        if not isinstance(other, Matrix):
-            return NotImplemented
-        return self.rows == other.rows
+        return self.rows == other.rows if isinstance(other, Matrix) else NotImplemented
 
     def __ne__(self, other: object) -> bool:
         return not self == other

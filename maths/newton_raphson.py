@@ -44,10 +44,7 @@ def newton_raphson(
             break
     else:
         raise ValueError("Iteration limit reached, no converging solution found")
-    if logsteps:
-        # If logstep is true, then log intermediate steps
-        return a, error, steps
-    return a, error, []
+    return (a, error, steps) if logsteps else (a, error, [])
 
 
 if __name__ == "__main__":

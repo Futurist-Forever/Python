@@ -11,16 +11,10 @@ Note this only works for basic functions, f(x) where the power of x is positive.
 class Dual:
     def __init__(self, real, rank):
         self.real = real
-        if isinstance(rank, int):
-            self.duals = [1] * rank
-        else:
-            self.duals = rank
+        self.duals = [1] * rank if isinstance(rank, int) else rank
 
     def __repr__(self):
-        return (
-            f"{self.real}+"
-            f"{'+'.join(str(dual)+'E'+str(n+1)for n,dual in enumerate(self.duals))}"
-        )
+        return f"{self.real}+{'+'.join(f'{str(dual)}E{str(n + 1)}' for n, dual in enumerate(self.duals))}"
 
     def reduce(self):
         cur = self.duals.copy()
@@ -37,9 +31,7 @@ class Dual:
             o_dual.extend([1] * (len(s_dual) - len(o_dual)))
         elif len(s_dual) < len(o_dual):
             s_dual.extend([1] * (len(o_dual) - len(s_dual)))
-        new_duals = []
-        for i in range(len(s_dual)):
-            new_duals.append(s_dual[i] + o_dual[i])
+        new_duals = [s_dual[i] + o_dual[i] for i in range(len(s_dual))]
         return Dual(self.real + other.real, new_duals)
 
     __radd__ = __add__
@@ -49,9 +41,7 @@ class Dual:
 
     def __mul__(self, other):
         if not isinstance(other, Dual):
-            new_duals = []
-            for i in self.duals:
-                new_duals.append(i * other)
+            new_duals = [i * other for i in self.duals]
             return Dual(self.real * other, new_duals)
         new_duals = [0] * (len(self.duals) + len(other.duals) + 1)
         for i, item in enumerate(self.duals):
@@ -67,17 +57,13 @@ class Dual:
 
     def __truediv__(self, other):
         if not isinstance(other, Dual):
-            new_duals = []
-            for i in self.duals:
-                new_duals.append(i / other)
+            new_duals = [i / other for i in self.duals]
             return Dual(self.real / other, new_duals)
         raise ValueError
 
     def __floordiv__(self, other):
         if not isinstance(other, Dual):
-            new_duals = []
-            for i in self.duals:
-                new_duals.append(i // other)
+            new_duals = [i // other for i in self.duals]
             return Dual(self.real // other, new_duals)
         raise ValueError
 

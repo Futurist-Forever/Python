@@ -39,30 +39,29 @@ def text_justification(word: str, max_width: int) -> list:
             # if there is only word in line
             # just insert overall_spaces_count for the remainder of line
             return line[0] + " " * overall_spaces_count
-        else:
-            spaces_to_insert_between_words = words_count - 1
-            # num_spaces_between_words_list[i] : tells you to insert
-            # num_spaces_between_words_list[i] spaces
-            # after word on line[i]
-            num_spaces_between_words_list = spaces_to_insert_between_words * [
-                overall_spaces_count // spaces_to_insert_between_words
-            ]
-            spaces_count_in_locations = (
-                overall_spaces_count % spaces_to_insert_between_words
-            )
-            # distribute spaces via round robin to the left words
-            for i in range(spaces_count_in_locations):
-                num_spaces_between_words_list[i] += 1
-            aligned_words_list = []
-            for i in range(spaces_to_insert_between_words):
-                # add the word
-                aligned_words_list.append(line[i])
-                # add the spaces to insert
-                aligned_words_list.append(num_spaces_between_words_list[i] * " ")
-            # just add the last word to the sentence
-            aligned_words_list.append(line[-1])
-            # join the aligned words list to form a justified line
-            return "".join(aligned_words_list)
+        spaces_to_insert_between_words = words_count - 1
+        # num_spaces_between_words_list[i] : tells you to insert
+        # num_spaces_between_words_list[i] spaces
+        # after word on line[i]
+        num_spaces_between_words_list = spaces_to_insert_between_words * [
+            overall_spaces_count // spaces_to_insert_between_words
+        ]
+        spaces_count_in_locations = (
+            overall_spaces_count % spaces_to_insert_between_words
+        )
+        # distribute spaces via round robin to the left words
+        for i in range(spaces_count_in_locations):
+            num_spaces_between_words_list[i] += 1
+        aligned_words_list = []
+        for i in range(spaces_to_insert_between_words):
+            # add the word
+            aligned_words_list.append(line[i])
+            # add the spaces to insert
+            aligned_words_list.append(num_spaces_between_words_list[i] * " ")
+        # just add the last word to the sentence
+        aligned_words_list.append(line[-1])
+        # join the aligned words list to form a justified line
+        return "".join(aligned_words_list)
 
     answer = []
     line: list[str] = []

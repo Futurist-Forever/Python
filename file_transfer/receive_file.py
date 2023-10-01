@@ -13,11 +13,11 @@ def main():
         print("File opened")
         print("Receiving data...")
         while True:
-            data = sock.recv(1024)
-            if not data:
-                break
-            out_file.write(data)
+            if data := sock.recv(1024):
+                out_file.write(data)
 
+            else:
+                break
     print("Successfully received the file")
     sock.close()
     print("Connection closed")

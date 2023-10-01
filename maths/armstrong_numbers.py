@@ -55,16 +55,16 @@ def pluperfect_number(n: int) -> bool:
     # Init a "histogram" of the digits
     digit_histogram = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     digit_total = 0
-    total = 0
     temp = n
     while temp > 0:
         temp, rem = divmod(temp, 10)
         digit_histogram[rem] += 1
         digit_total += 1
 
-    for cnt, i in zip(digit_histogram, range(len(digit_histogram))):
-        total += cnt * i**digit_total
-
+    total = sum(
+        cnt * i**digit_total
+        for cnt, i in zip(digit_histogram, range(len(digit_histogram)))
+    )
     return n == total
 
 

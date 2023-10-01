@@ -188,14 +188,10 @@ class SmoSVM:
             2:sample[index] is bound,Use predicted value deduct true value: g(xi) - yi
 
         """
-        # get from error data
         if self._is_unbound(index):
             return self._error[index]
-        # get by g(xi) - yi
-        else:
-            gx = np.dot(self.alphas * self.tags, self._K_matrix[:, index]) + self._b
-            yi = self.tags[index]
-            return gx - yi
+        gx = np.dot(self.alphas * self.tags, self._K_matrix[:, index]) + self._b
+        return gx - self.tags[index]
 
     # Calculate Kernel matrix of all possible i1,i2 ,saving time
     def _calculate_k_matrix(self):
@@ -210,7 +206,7 @@ class SmoSVM:
     # Predict test sample's tag
     def _predict(self, sample):
         k = self._k
-        predicted_value = (
+        return (
             np.sum(
                 [
                     self.alphas[i1] * self.tags[i1] * k(i1, sample)
@@ -219,14 +215,11 @@ class SmoSVM:
             )
             + self._b
         )
-        return predicted_value
 
     # Choose alpha1 and alpha2
     def _choose_alphas(self):
         locis = yield from self._choose_a1()
-        if not locis:
-            return None
-        return locis
+        return None if not locis else locis
 
     def _choose_a1(self):
         """
@@ -381,15 +374,13 @@ class SmoSVM:
             self._min = np.min(data, axis=0)
             self._max = np.max(data, axis=0)
             self._init = False
-            return (data - self._min) / (self._max - self._min)
-        else:
-            return (data - self._min) / (self._max - self._min)
+        return (data - self._min) / (self._max - self._min)
 
     def _is_unbound(self, index):
-        return bool(0.0 < self.alphas[index] < self._c)
+        return 0.0 < self.alphas[index] < self._c
 
     def _is_support(self, index):
-        return bool(self.alphas[index] > 0)
+        return self.alphas[index] > 0
 
     @property
     def unbound(self):
@@ -491,12 +482,8 @@ def test_cancel_data():
     mysvm.fit()
     predict = mysvm.predict(test_samples)
 
-    # 5: check accuracy
-    score = 0
     test_num = test_tags.shape[0]
-    for i in range(test_tags.shape[0]):
-        if test_tags[i] == predict[i]:
-            score += 1
+    score = sum(1 for i in range(test_tags.shape[0]) if test_tags[i] == predict[i])
     print(f"\nall: {test_num}\nright: {score}\nfalse: {test_num - score}")
     print(f"Rough Accuracy: {score / test_tags.shape[0]}")
 

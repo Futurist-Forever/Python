@@ -95,13 +95,13 @@ class BinarySearchTree:
     def __reassign_nodes(self, node: Node, new_children: Node | None) -> None:
         if new_children is not None:  # reset its kids
             new_children.parent = node.parent
-        if node.parent is not None:  # reset its parent
-            if node.is_right:  # If it is the right child
-                node.parent.right = new_children
-            else:
-                node.parent.left = new_children
-        else:
+        if node.parent is None:
             self.root = new_children
+
+        elif node.is_right:  # If it is the right child
+            node.parent.right = new_children
+        else:
+            node.parent.left = new_children
 
     def empty(self) -> bool:
         return self.root is None
@@ -124,12 +124,11 @@ class BinarySearchTree:
                         break
                     else:
                         parent_node = parent_node.left
+                elif parent_node.right is None:
+                    parent_node.right = new_node
+                    break
                 else:
-                    if parent_node.right is None:
-                        parent_node.right = new_node
-                        break
-                    else:
-                        parent_node = parent_node.right
+                    parent_node = parent_node.right
             new_node.parent = parent_node
 
     def insert(self, *values) -> None:
@@ -139,12 +138,11 @@ class BinarySearchTree:
     def search(self, value) -> Node | None:
         if self.empty():
             raise IndexError("Warning: Tree is empty! please use another.")
-        else:
-            node = self.root
-            # use lazy evaluation here to avoid NoneType Attribute error
-            while node is not None and node.value is not value:
-                node = node.left if value < node.value else node.right
-            return node
+        node = self.root
+        # use lazy evaluation here to avoid NoneType Attribute error
+        while node is not None and node.value is not value:
+            node = node.left if value < node.value else node.right
+        return node
 
     def get_max(self, node: Node | None = None) -> Node | None:
         """
@@ -231,10 +229,11 @@ def postorder(curr_node: Node | None) -> list[Node]:
     """
     postOrder (left, right, self)
     """
-    node_list = []
-    if curr_node is not None:
-        node_list = postorder(curr_node.left) + postorder(curr_node.right) + [curr_node]
-    return node_list
+    return (
+        postorder(curr_node.left) + postorder(curr_node.right) + [curr_node]
+        if curr_node is not None
+        else []
+    )
 
 
 if __name__ == "__main__":

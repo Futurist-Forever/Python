@@ -52,11 +52,10 @@ def is_prime(number: int) -> bool:
         # Negatives, 0, 1, all even numbers, all multiples of 3 are not primes
         return False
 
-    # All primes number are in format of 6k +/- 1
-    for i in range(5, int(math.sqrt(number) + 1), 6):
-        if number % i == 0 or number % (i + 2) == 0:
-            return False
-    return True
+    return not any(
+        number % i == 0 or number % (i + 2) == 0
+        for i in range(5, int(math.sqrt(number) + 1), 6)
+    )
 
 
 def solution(a_limit: int = 1000, b_limit: int = 1000) -> int:
@@ -83,8 +82,7 @@ def solution(a_limit: int = 1000, b_limit: int = 1000) -> int:
                     n += 1
                 if count > longest[0]:
                     longest = [count, a, b]
-    ans = longest[1] * longest[2]
-    return ans
+    return longest[1] * longest[2]
 
 
 if __name__ == "__main__":

@@ -101,9 +101,11 @@ def is_valid_email_address(email: str) -> bool:
         return False
 
     # (7.) Validate the placement of "." characters
-    if domain.startswith(".") or domain.endswith(".") or ".." in domain:
-        return False
-    return True
+    return (
+        not domain.startswith(".")
+        and not domain.endswith(".")
+        and ".." not in domain
+    )
 
 
 if __name__ == "__main__":

@@ -42,7 +42,7 @@ def sin(
     0.9999862922
     """
     # Simplify the angle to be between 360 and -360 degrees.
-    angle_in_degrees = angle_in_degrees - ((angle_in_degrees // 360.0) * 360.0)
+    angle_in_degrees -= (angle_in_degrees // 360.0) * 360.0
 
     # Converting from degrees to radians
     angle_in_radians = radians(angle_in_degrees)

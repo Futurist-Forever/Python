@@ -95,7 +95,7 @@ if __name__ == "__main__":
     inp = ""
 
     # Pulling Data (Output)
-    while inp in ("e", "E"):
+    while inp in {"e", "E"}:
         print(f"{format(pull(), '#04x')}")
         print(buffer_space)
         print(params_space)

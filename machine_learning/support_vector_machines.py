@@ -67,12 +67,9 @@ class SVC:
                 raise ValueError("rbf kernel requires gamma")
             if not isinstance(self.gamma, (float, int)):
                 raise ValueError("gamma must be float or int")
-            if not self.gamma > 0:
+            if self.gamma <= 0:
                 raise ValueError("gamma must be > 0")
             self.kernel = self.__rbf
-            # in the future, there could be a default value like in sklearn
-            # sklear: def_gamma = 1/(n_features * X.var()) (wiki)
-            # previously it was 1/(n_features)
         else:
             msg = f"Unknown kernel: {kernel}"
             raise ValueError(msg)

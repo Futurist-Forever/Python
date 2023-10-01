@@ -39,12 +39,13 @@ def get_subreddit_data(
     if not wanted_data:
         return {id_: data["data"]["children"][id_] for id_ in range(limit)}
 
-    data_dict = {}
-    for id_ in range(limit):
-        data_dict[id_] = {
-            item: data["data"]["children"][id_]["data"][item] for item in wanted_data
+    return {
+        id_: {
+            item: data["data"]["children"][id_]["data"][item]
+            for item in wanted_data
         }
-    return data_dict
+        for id_ in range(limit)
+    }
 
 
 if __name__ == "__main__":

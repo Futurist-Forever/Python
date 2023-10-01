@@ -15,29 +15,29 @@ class Heap:
     def top_to_bottom(self, heap, start, size, positions):
         if start > size // 2 - 1:
             return
+        if 2 * start + 2 >= size:
+            smallest_child = 2 * start + 1
         else:
-            if 2 * start + 2 >= size:
-                smallest_child = 2 * start + 1
-            else:
-                if heap[2 * start + 1] < heap[2 * start + 2]:
-                    smallest_child = 2 * start + 1
-                else:
-                    smallest_child = 2 * start + 2
-            if heap[smallest_child] < heap[start]:
-                temp, temp1 = heap[smallest_child], positions[smallest_child]
-                heap[smallest_child], positions[smallest_child] = (
-                    heap[start],
-                    positions[start],
-                )
-                heap[start], positions[start] = temp, temp1
+            smallest_child = (
+                2 * start + 1
+                if heap[2 * start + 1] < heap[2 * start + 2]
+                else 2 * start + 2
+            )
+        if heap[smallest_child] < heap[start]:
+            temp, temp1 = heap[smallest_child], positions[smallest_child]
+            heap[smallest_child], positions[smallest_child] = (
+                heap[start],
+                positions[start],
+            )
+            heap[start], positions[start] = temp, temp1
 
-                temp = self.get_position(positions[smallest_child])
-                self.set_position(
-                    positions[smallest_child], self.get_position(positions[start])
-                )
-                self.set_position(positions[start], temp)
+            temp = self.get_position(positions[smallest_child])
+            self.set_position(
+                positions[smallest_child], self.get_position(positions[start])
+            )
+            self.set_position(positions[start], temp)
 
-                self.top_to_bottom(heap, smallest_child, size, positions)
+            self.top_to_bottom(heap, smallest_child, size, positions)
 
     # Update function if value of any node in min-heap decreases
     def bottom_to_top(self, val, index, heap, position):

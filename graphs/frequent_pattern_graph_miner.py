@@ -62,12 +62,12 @@ def get_frequency_table(edge_array):
         # bt=''.join(bit)
         s = bit.count("1")
         frequency_table[item] = [s, bit]
-    # Store [Distinct edge, WT(Bitcode), Bitcode] in descending order
-    sorted_frequency_table = [
+    return [
         [k, v[0], v[1]]
-        for k, v in sorted(frequency_table.items(), key=lambda v: v[1][0], reverse=True)
+        for k, v in sorted(
+            frequency_table.items(), key=lambda v: v[1][0], reverse=True
+        )
     ]
-    return sorted_frequency_table
 
 
 def get_nodes(frequency_table):
@@ -79,7 +79,7 @@ def get_nodes(frequency_table):
     {'11111': ['ab', 'ac', 'df', 'bd', 'bc']}
     """
     nodes = {}
-    for _, item in enumerate(frequency_table):
+    for item in frequency_table:
         nodes.setdefault(item[2], []).append(item[0])
     return nodes
 
@@ -164,7 +164,7 @@ def construct_graph(cluster, nodes):
     i = 1
     while i < max(cluster) - 1:
         create_edge(nodes, graph, cluster, i)
-        i = i + 1
+        i += 1
     return graph
 
 

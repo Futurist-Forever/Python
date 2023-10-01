@@ -121,9 +121,11 @@ def bb84(key_len: int = 8, seed: int | None = None) -> str:
         ]
     )
 
-    # Get final key. Pad with 0 if too short, otherwise truncate.
-    key = gen_key[:key_len] if len(gen_key) >= key_len else gen_key.ljust(key_len, "0")
-    return key
+    return (
+        gen_key[:key_len]
+        if len(gen_key) >= key_len
+        else gen_key.ljust(key_len, "0")
+    )
 
 
 if __name__ == "__main__":

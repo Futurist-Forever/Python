@@ -92,10 +92,9 @@ def decrypt(ciphertext: str, key: str) -> str:
         raise ValueError("key is empty")
 
     key = key.lower()
-    ciphertext_iterator = 0
     key_iterator = 0
     plaintext = ""
-    while ciphertext_iterator < len(ciphertext):
+    for ciphertext_iterator in range(len(ciphertext)):
         if (
             ord(ciphertext[ciphertext_iterator]) < 97
             or ord(ciphertext[ciphertext_iterator]) > 122
@@ -111,7 +110,6 @@ def decrypt(ciphertext: str, key: str) -> str:
                 + 97
             )
             key_iterator += 1
-        ciphertext_iterator += 1
     return plaintext
 
 

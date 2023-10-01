@@ -34,8 +34,7 @@ class BifidCipher:
         True
         """
         index1, index2 = np.where(letter == self.SQUARE)
-        indexes = np.concatenate([index1 + 1, index2 + 1])
-        return indexes
+        return np.concatenate([index1 + 1, index2 + 1])
 
     def numbers_to_letter(self, index1: int, index2: int) -> str:
         """
@@ -48,8 +47,7 @@ class BifidCipher:
         >>> BifidCipher().numbers_to_letter(1, 1) == "a"
         True
         """
-        letter = self.SQUARE[index1 - 1, index2 - 1]
-        return letter
+        return self.SQUARE[index1 - 1, index2 - 1]
 
     def encode(self, message: str) -> str:
         """

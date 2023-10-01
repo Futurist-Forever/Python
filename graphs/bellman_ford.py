@@ -43,8 +43,9 @@ def bellman_ford(
             if distance[u] != float("inf") and distance[u] + w < distance[v]:
                 distance[v] = distance[u] + w
 
-    negative_cycle_exists = check_negative_cycle(graph, distance, edge_count)
-    if negative_cycle_exists:
+    if negative_cycle_exists := check_negative_cycle(
+        graph, distance, edge_count
+    ):
         raise Exception("Negative cycle found")
 
     return distance

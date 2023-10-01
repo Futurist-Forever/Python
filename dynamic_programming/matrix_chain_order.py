@@ -10,8 +10,8 @@ Space Complexity: O(n^2)
 
 def matrix_chain_order(array):
     n = len(array)
-    matrix = [[0 for x in range(n)] for x in range(n)]
-    sol = [[0 for x in range(n)] for x in range(n)]
+    matrix = [[0 for _ in range(n)] for _ in range(n)]
+    sol = [[0 for _ in range(n)] for _ in range(n)]
 
     for chain_length in range(2, n):
         for a in range(1, n - chain_length + 1):
@@ -31,7 +31,7 @@ def matrix_chain_order(array):
 # Print order of matrix with Ai as Matrix
 def print_optiomal_solution(optimal_solution, i, j):
     if i == j:
-        print("A" + str(i), end=" ")
+        print(f"A{str(i)}", end=" ")
     else:
         print("(", end=" ")
         print_optiomal_solution(optimal_solution, i, optimal_solution[i][j])
@@ -46,7 +46,7 @@ def main():
     # 30*35 35*15 15*5 5*10 10*20 20*25
     matrix, optimal_solution = matrix_chain_order(array)
 
-    print("No. of Operation required: " + str(matrix[1][n - 1]))
+    print(f"No. of Operation required: {str(matrix[1][n - 1])}")
     print_optiomal_solution(optimal_solution, 1, n - 1)
 
 

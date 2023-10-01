@@ -78,27 +78,30 @@ class SkipList(Generic[KT, VT]):
 
         items = list(self)
 
-        if len(items) == 0:
+        if not items:
             return f"SkipList(level={self.level})"
 
         label_size = max((len(str(item)) for item in items), default=4)
         label_size = max(label_size, 4) + 4
 
         node = self.head
-        lines = []
-
         forwards = node.forward.copy()
-        lines.append(f"[{node.key}]".ljust(label_size, "-") + "* " * len(forwards))
-        lines.append(" " * label_size + "| " * len(forwards))
-
+        lines = [
+            f"[{node.key}]".ljust(label_size, "-") + "* " * len(forwards),
+            " " * label_size + "| " * len(forwards),
+        ]
         while len(node.forward) != 0:
             node = node.forward[0]
 
-            lines.append(
-                f"[{node.key}]".ljust(label_size, "-")
-                + " ".join(str(n.key) if n.key == node.key else "|" for n in forwards)
+            lines.extend(
+                (
+                    f"[{node.key}]".ljust(label_size, "-")
+                    + " ".join(
+                        str(n.key) if n.key == node.key else "|" for n in forwards
+                    ),
+                    " " * label_size + "| " * len(forwards),
+                )
             )
-            lines.append(" " * label_size + "| " * len(forwards))
             forwards[: node.level] = node.forward
 
         lines.append("None".ljust(label_size) + "* " * len(forwards))
@@ -238,10 +241,7 @@ class SkipList(Generic[KT, VT]):
 
         node, _ = self._locate_node(key)
 
-        if node is not None:
-            return node.value
-
-        return None
+        return node.value if node is not None else None
 
 
 def test_insert():

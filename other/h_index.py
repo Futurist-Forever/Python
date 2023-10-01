@@ -58,11 +58,14 @@ def h_index(citations: list[int]) -> int:
     citations.sort()
     len_citations = len(citations)
 
-    for i in range(len_citations):
-        if citations[len_citations - 1 - i] <= i:
-            return i
-
-    return len_citations
+    return next(
+        (
+            i
+            for i in range(len_citations)
+            if citations[len_citations - 1 - i] <= i
+        ),
+        len_citations,
+    )
 
 
 if __name__ == "__main__":

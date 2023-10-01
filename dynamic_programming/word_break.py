@@ -55,7 +55,7 @@ def word_break(string: str, words: list[str]) -> bool:
     """
 
     # Validation
-    if not isinstance(string, str) or len(string) == 0:
+    if not isinstance(string, str) or not string:
         raise ValueError("the string should be not empty string")
 
     if not isinstance(words, list) or not all(

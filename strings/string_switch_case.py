@@ -44,21 +44,21 @@ def to_complex_case(text: str, upper: bool, separator: str) -> str:
     """
     try:
         string_split = split_input(text)
-        if upper:
-            res_str = "".join(
+        return (
+            "".join(
                 [
                     separator.join([char.upper() for char in sub_str])
                     for sub_str in string_split
                 ]
             )
-        else:
-            res_str = "".join(
+            if upper
+            else "".join(
                 [
                     separator.join([char.lower() for char in sub_str])
                     for sub_str in string_split
                 ]
             )
-        return res_str
+        )
     except IndexError:
         return "not valid string"
 

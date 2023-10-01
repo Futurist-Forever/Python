@@ -88,7 +88,7 @@ def generate_gon_ring(gon_side: int, perm: list[int]) -> list[int]:
     [6, 5, 4, 3, 4, 2, 1, 2, 7, 8, 7, 9, 10, 9, 5]
     """
     result = [0] * (gon_side * 3)
-    result[0:3] = perm[0:3]
+    result[:3] = perm[:3]
     perm.append(perm[1])
 
     magic_number = 1 if gon_side < 5 else 2

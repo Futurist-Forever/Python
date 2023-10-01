@@ -91,8 +91,7 @@ def interquartile_range_checker(train_user: list) -> float:
     q1 = np.percentile(train_user, 25)
     q3 = np.percentile(train_user, 75)
     iqr = q3 - q1
-    low_lim = q1 - (iqr * 0.1)
-    return low_lim
+    return q1 - (iqr * 0.1)
 
 
 def data_safety_checker(list_vote: list, actual_result: float) -> bool:
@@ -113,11 +112,10 @@ def data_safety_checker(list_vote: list, actual_result: float) -> bool:
     for i in list_vote:
         if i > actual_result:
             safe = not_safe + 1
+        elif abs(abs(i) - abs(actual_result)) <= 0.1:
+            safe += 1
         else:
-            if abs(abs(i) - abs(actual_result)) <= 0.1:
-                safe += 1
-            else:
-                not_safe += 1
+            not_safe += 1
     return safe > not_safe
 
 
@@ -137,17 +135,17 @@ if __name__ == "__main__":
 
     # for svr (input variable = total date and total match)
     x = normalize_df[:, [1, 2]].tolist()
-    x_train = x[: len(x) - 1]
-    x_test = x[len(x) - 1 :]
+    x_train = x[:-1]
+    x_test = x[-1:]
 
     # for linear regression & sarimax
-    train_date = total_date[: len(total_date) - 1]
-    train_user = total_user[: len(total_user) - 1]
-    train_match = total_match[: len(total_match) - 1]
+    train_date = total_date[:-1]
+    train_user = total_user[:-1]
+    train_match = total_match[:-1]
 
-    test_date = total_date[len(total_date) - 1 :]
-    test_user = total_user[len(total_user) - 1 :]
-    test_match = total_match[len(total_match) - 1 :]
+    test_date = total_date[-1:]
+    test_user = total_user[-1:]
+    test_match = total_match[-1:]
 
     # voting system with forecasting
     res_vote = [

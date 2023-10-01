@@ -60,9 +60,7 @@ class SegmentTree:
         return max(q1, q2)
 
     def show_data(self):
-        show_list = []
-        for i in range(1, N + 1):
-            show_list += [self.query(i, i)]
+        show_list = [self.query(i, i) for i in range(1, N + 1)]
         print(show_list)
 
 

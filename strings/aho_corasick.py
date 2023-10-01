@@ -5,20 +5,22 @@ from collections import deque
 
 class Automaton:
     def __init__(self, keywords: list[str]):
-        self.adlist: list[dict] = []
-        self.adlist.append(
+        self.adlist: list[dict] = [
             {"value": "", "next_states": [], "fail_state": 0, "output": []}
-        )
-
+        ]
         for keyword in keywords:
             self.add_keyword(keyword)
         self.set_fail_transitions()
 
     def find_next_state(self, current_state: int, char: str) -> int | None:
-        for state in self.adlist[current_state]["next_states"]:
-            if char == self.adlist[state]["value"]:
-                return state
-        return None
+        return next(
+            (
+                state
+                for state in self.adlist[current_state]["next_states"]
+                if char == self.adlist[state]["value"]
+            ),
+            None,
+        )
 
     def add_keyword(self, keyword: str) -> None:
         current_state = 0

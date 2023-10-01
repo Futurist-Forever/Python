@@ -48,7 +48,7 @@ def maclaurin_sin(theta: float, accuracy: int = 30) -> float:
     if not isinstance(accuracy, int) or accuracy <= 0:
         raise ValueError("maclaurin_sin() requires a positive int for accuracy")
 
-    theta = float(theta)
+    theta = theta
     div = theta // (2 * pi)
     theta -= 2 * div * pi
     return sum(
@@ -100,7 +100,7 @@ def maclaurin_cos(theta: float, accuracy: int = 30) -> float:
     if not isinstance(accuracy, int) or accuracy <= 0:
         raise ValueError("maclaurin_cos() requires a positive int for accuracy")
 
-    theta = float(theta)
+    theta = theta
     div = theta // (2 * pi)
     theta -= 2 * div * pi
     return sum((-1) ** r * theta ** (2 * r) / factorial(2 * r) for r in range(accuracy))

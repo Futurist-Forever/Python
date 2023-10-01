@@ -88,7 +88,7 @@ def identity(n: int) -> list[list[int]]:
     >>> identity(3)
     [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
     """
-    n = int(n)
+    n = n
     return [[int(row == column) for column in range(n)] for row in range(n)]
 
 
@@ -106,10 +106,7 @@ def transpose(
     TypeError: Expected a matrix, got int/list instead
     """
     if _check_not_integer(matrix):
-        if return_map:
-            return map(list, zip(*matrix))
-        else:
-            return list(map(list, zip(*matrix)))
+        return map(list, zip(*matrix)) if return_map else list(map(list, zip(*matrix)))
     raise TypeError("Expected a matrix, got int/list instead")
 
 

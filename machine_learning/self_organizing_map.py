@@ -48,9 +48,9 @@ def main() -> None:
     alpha = 0.5
 
     for _ in range(epochs):
-        for j in range(len(training_samples)):
+        for training_sample in training_samples:
             # training sample
-            sample = training_samples[j]
+            sample = training_sample
 
             # Compute the winning vector
             winner = self_organizing_map.get_winner(weights, sample)

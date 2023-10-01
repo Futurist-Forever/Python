@@ -63,7 +63,7 @@ def find_minimum_change(denominations: list[int], value: str) -> list[int]:
     # Traverse through all denomination
     for denomination in reversed(denominations):
         # Find denominations
-        while int(total_value) >= int(denomination):
+        while total_value >= int(denomination):
             total_value -= int(denomination)
             answer.append(denomination)  # Append the "answers" array
 
@@ -81,8 +81,9 @@ if __name__ == "__main__":
     ):
         n = int(input("Enter the number of denominations you want to add: ").strip())
 
-        for i in range(n):
-            denominations.append(int(input(f"Denomination {i}: ").strip()))
+        denominations.extend(
+            int(input(f"Denomination {i}: ").strip()) for i in range(n)
+        )
         value = input("Enter the change you want to make in Indian Currency: ").strip()
     else:
         # All denominations of Indian Currency if user does not enter

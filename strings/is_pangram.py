@@ -21,14 +21,11 @@ def is_pangram(
     >>> is_pangram()
     True
     """
-    # Declare frequency as a set to have unique occurrences of letters
-    frequency = set()
-
     # Replace all the whitespace in our sentence
     input_str = input_str.replace(" ", "")
-    for alpha in input_str:
-        if "a" <= alpha.lower() <= "z":
-            frequency.add(alpha.lower())
+    frequency = {
+        alpha.lower() for alpha in input_str if "a" <= alpha.lower() <= "z"
+    }
     return len(frequency) == 26
 
 

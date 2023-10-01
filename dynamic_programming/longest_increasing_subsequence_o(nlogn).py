@@ -29,7 +29,7 @@ def longest_increasing_subsequence_length(v: list[int]) -> int:
     >>> longest_increasing_subsequence_length([5, 4, 3, 2, 1])
     1
     """
-    if len(v) == 0:
+    if not v:
         return 0
 
     tail = [0] * len(v)

@@ -86,7 +86,7 @@ def emails_from_url(url: str = "https://github.com") -> list[str]:
             try:
                 read = requests.get(link)
                 # Get the valid email.
-                emails = re.findall("[a-zA-Z0-9]+@" + domain, read.text)
+                emails = re.findall(f"[a-zA-Z0-9]+@{domain}", read.text)
                 # If not in list then append it.
                 for email in emails:
                     valid_emails.add(email)

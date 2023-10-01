@@ -12,10 +12,7 @@ class PriorityQueue:
         self.set = set()
 
     def minkey(self):
-        if not self.empty():
-            return self.elements[0][0]
-        else:
-            return float("inf")
+        return self.elements[0][0] if not self.empty() else float("inf")
 
     def empty(self):
         return len(self.elements) == 0
@@ -74,8 +71,7 @@ def heuristic_1(p: TPos, goal: TPos):
 
 
 def key(start: TPos, i: int, goal: TPos, g_function: dict[TPos, float]):
-    ans = g_function[start] + W1 * heuristics[i](start, goal)
-    return ans
+    return g_function[start] + W1 * heuristics[i](start, goal)
 
 
 def do_something(back_pointer, goal, start):
@@ -121,11 +117,7 @@ def do_something(back_pointer, goal, start):
 
 
 def valid(p: TPos):
-    if p[0] < 0 or p[0] > n - 1:
-        return False
-    if p[1] < 0 or p[1] > n - 1:
-        return False
-    return True
+    return False if p[0] < 0 or p[0] > n - 1 else p[1] >= 0 and p[1] <= n - 1
 
 
 def expand_state(
@@ -174,23 +166,15 @@ def expand_state(
 def make_common_ground():
     some_list = []
     for x in range(1, 5):
-        for y in range(1, 6):
-            some_list.append((x, y))
-
-    for x in range(15, 20):
-        some_list.append((x, 17))
-
+        some_list.extend((x, y) for y in range(1, 6))
+    some_list.extend((x, 17) for x in range(15, 20))
     for x in range(10, 19):
-        for y in range(1, 15):
-            some_list.append((x, y))
-
+        some_list.extend((x, y) for y in range(1, 15))
     # L block
     for x in range(1, 4):
-        for y in range(12, 19):
-            some_list.append((x, y))
+        some_list.extend((x, y) for y in range(12, 19))
     for x in range(3, 13):
-        for y in range(16, 19):
-            some_list.append((x, y))
+        some_list.extend((x, y) for y in range(16, 19))
     return some_list
 
 
@@ -270,24 +254,23 @@ def multi_a_star(start: TPos, goal: TPos, n_heuristic: int):
                         back_pointer,
                     )
                     close_list_inad.append(get_s)
+            elif g_function[goal] <= open_list[0].minkey():
+                if g_function[goal] < float("inf"):
+                    do_something(back_pointer, goal, start)
             else:
-                if g_function[goal] <= open_list[0].minkey():
-                    if g_function[goal] < float("inf"):
-                        do_something(back_pointer, goal, start)
-                else:
-                    get_s = open_list[0].top_show()
-                    visited.add(get_s)
-                    expand_state(
-                        get_s,
-                        0,
-                        visited,
-                        g_function,
-                        close_list_anchor,
-                        close_list_inad,
-                        open_list,
-                        back_pointer,
-                    )
-                    close_list_anchor.append(get_s)
+                get_s = open_list[0].top_show()
+                visited.add(get_s)
+                expand_state(
+                    get_s,
+                    0,
+                    visited,
+                    g_function,
+                    close_list_anchor,
+                    close_list_inad,
+                    open_list,
+                    back_pointer,
+                )
+                close_list_anchor.append(get_s)
     print("No path found to goal")
     print()
     for i in range(n - 1, -1, -1):

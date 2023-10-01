@@ -44,7 +44,7 @@ def is_automorphic_number(number: int) -> bool:
         raise TypeError(msg)
     if number < 0:
         return False
-    number_square = number * number
+    number_square = number**2
     while number > 0:
         if number % 10 != number_square % 10:
             return False

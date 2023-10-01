@@ -40,7 +40,7 @@ if __name__ == "__main__":
     n, m = list(map(int, input().strip().split()))
 
     graph: list[list[int]] = [[] for _ in range(n)]  # graph
-    reversed_graph: list[list[int]] = [[] for i in range(n)]  # reversed graph
+    reversed_graph: list[list[int]] = [[] for _ in range(n)]
     # input graph data (edges)
     for _ in range(m):
         u, v = list(map(int, input().strip().split()))

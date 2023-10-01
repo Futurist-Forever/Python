@@ -6,7 +6,7 @@ def permute_recursive(nums: list[int]) -> list[list[int]]:
     [[3, 2, 1], [2, 3, 1], [1, 3, 2], [3, 1, 2], [2, 1, 3], [1, 2, 3]]
     """
     result: list[list[int]] = []
-    if len(nums) == 0:
+    if not nums:
         return [[]]
     for _ in range(len(nums)):
         n = nums.pop(0)

@@ -54,9 +54,7 @@ def jump_search(arr: Sequence[T], item: T) -> int:
         prev += 1
         if prev == min(step, arr_size):
             return -1
-    if arr[prev] == item:
-        return prev
-    return -1
+    return prev if arr[prev] == item else -1
 
 
 if __name__ == "__main__":

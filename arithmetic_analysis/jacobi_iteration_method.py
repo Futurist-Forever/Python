@@ -180,20 +180,12 @@ def strictly_diagonally_dominant(table: NDArray[float64]) -> bool:
 
     rows, cols = table.shape
 
-    is_diagonally_dominant = True
-
     for i in range(rows):
-        total = 0
-        for j in range(cols - 1):
-            if i == j:
-                continue
-            else:
-                total += table[i][j]
-
+        total = sum(table[i][j] for j in range(cols - 1) if i != j)
         if table[i][i] <= total:
             raise ValueError("Coefficient matrix is not strictly diagonally dominant")
 
-    return is_diagonally_dominant
+    return True
 
 
 # Test Cases

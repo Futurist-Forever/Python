@@ -6,17 +6,15 @@ import math
 def sieve(n: int) -> list[int]:
     """Segmented Sieve."""
     in_prime = []
-    start = 2
     end = int(math.sqrt(n))  # Size of every segment
     temp = [True] * (end + 1)
     prime = []
 
-    while start <= end:
+    for start in range(2, end + 1):
         if temp[start] is True:
             in_prime.append(start)
-            for i in range(start * start, end + 1, start):
+            for i in range(start**2, end + 1, start):
                 temp[i] = False
-        start += 1
     prime += in_prime
 
     low = end + 1

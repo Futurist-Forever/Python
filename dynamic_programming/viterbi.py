@@ -170,7 +170,7 @@ def viterbi(
             pointers[(state, observation)] = arg_max
 
     # The final observation
-    final_observation = observations_space[len(observations_space) - 1]
+    final_observation = observations_space[-1]
 
     # argmax for given final observation
     arg_max = ""

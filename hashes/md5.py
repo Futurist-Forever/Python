@@ -181,10 +181,7 @@ def get_block_words(bit_string: bytes) -> Generator[list[int], None, None]:
 
     for pos in range(0, len(bit_string), 512):
         block = bit_string[pos : pos + 512]
-        block_words = []
-        for i in range(0, 512, 32):
-            block_words.append(int(to_little_endian(block[i : i + 32]), 2))
-        yield block_words
+        yield [int(to_little_endian(block[i : i + 32]), 2) for i in range(0, 512, 32)]
 
 
 def not_32(i: int) -> int:
@@ -219,9 +216,7 @@ def not_32(i: int) -> int:
         raise ValueError("Input must be non-negative")
 
     i_str = format(i, "032b")
-    new_str = ""
-    for c in i_str:
-        new_str += "1" if c == "0" else "0"
+    new_str = "".join("1" if c == "0" else "0" for c in i_str)
     return int(new_str, 2)
 
 
@@ -434,8 +429,12 @@ def md5_me(message: bytes) -> bytes:
         c0 = sum_32(c0, c)
         d0 = sum_32(d0, d)
 
-    digest = reformat_hex(a0) + reformat_hex(b0) + reformat_hex(c0) + reformat_hex(d0)
-    return digest
+    return (
+        reformat_hex(a0)
+        + reformat_hex(b0)
+        + reformat_hex(c0)
+        + reformat_hex(d0)
+    )
 
 
 if __name__ == "__main__":

@@ -74,7 +74,7 @@ def circle_sort(collection: list) -> list:
 
     is_not_sorted = True
 
-    while is_not_sorted is True:
+    while is_not_sorted:
         is_not_sorted = circle_sort_util(collection, 0, len(collection) - 1)
 
     return collection

@@ -30,9 +30,7 @@ def solution():
 
     a = []
     for line in triangle:
-        numbers_from_line = []
-        for number in line.strip().split(" "):
-            numbers_from_line.append(int(number))
+        numbers_from_line = [int(number) for number in line.strip().split(" ")]
         a.append(numbers_from_line)
 
     for i in range(1, len(a)):

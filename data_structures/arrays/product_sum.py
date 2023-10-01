@@ -58,9 +58,10 @@ def product_sum(arr: list[int | list], depth: int) -> int:
         1.5
 
     """
-    total_sum = 0
-    for ele in arr:
-        total_sum += product_sum(ele, depth + 1) if isinstance(ele, list) else ele
+    total_sum = sum(
+        product_sum(ele, depth + 1) if isinstance(ele, list) else ele
+        for ele in arr
+    )
     return total_sum * depth
 
 

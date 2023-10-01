@@ -41,10 +41,10 @@ class Perceptron:
         ValueError: Sample data and Target data do not have matching lengths
         """
         self.sample = sample
-        if len(self.sample) == 0:
+        if not self.sample:
             raise ValueError("Sample data can not be empty")
         self.target = target
-        if len(self.target) == 0:
+        if not self.target:
             raise ValueError("Target data can not be empty")
         if len(self.sample) != len(self.target):
             raise ValueError("Sample data and Target data do not have matching lengths")

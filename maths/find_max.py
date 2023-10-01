@@ -16,7 +16,7 @@ def find_max_iterative(nums: list[int | float]) -> int | float:
         ...
     ValueError: find_max_iterative() arg is an empty sequence
     """
-    if len(nums) == 0:
+    if not nums:
         raise ValueError("find_max_iterative() arg is an empty sequence")
     max_num = nums[0]
     for x in nums:
@@ -58,7 +58,7 @@ def find_max_recursive(nums: list[int | float], left: int, right: int) -> int | 
         ...
     IndexError: list index out of range
     """
-    if len(nums) == 0:
+    if not nums:
         raise ValueError("find_max_recursive() arg is an empty sequence")
     if (
         left >= len(nums)

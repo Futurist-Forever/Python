@@ -232,13 +232,13 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    input_string = args.input_string
-
     # hash input should be a bytestring
     if args.input_file:
         with open(args.input_file, "rb") as f:
             hash_input = f.read()
     else:
+        input_string = args.input_string
+
         hash_input = bytes(input_string, "utf-8")
 
     print(SHA256(hash_input).hash)

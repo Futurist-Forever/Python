@@ -61,12 +61,7 @@ def get_initial_centroids(data, k, seed=None):
     # Pick K indices from range [0, N).
     rand_indices = np.random.randint(0, n, k)
 
-    # Keep centroids as dense format, as many entries will be nonzero due to averaging.
-    # As long as at least one document in a cluster contains a word,
-    # it will carry a nonzero weight in the TF-IDF vector of the centroid.
-    centroids = data[rand_indices, :]
-
-    return centroids
+    return data[rand_indices, :]
 
 
 def centroid_pairwise_dist(x, centroids):
@@ -78,11 +73,7 @@ def assign_clusters(data, centroids):
     # Fill in the blank (RHS only)
     distances_from_centroids = centroid_pairwise_dist(data, centroids)
 
-    # Compute cluster assignments for each data point:
-    # Fill in the blank (RHS only)
-    cluster_assignment = np.argmin(distances_from_centroids, axis=1)
-
-    return cluster_assignment
+    return np.argmin(distances_from_centroids, axis=1)
 
 
 def revise_centroids(data, k, cluster_assignment):
@@ -93,9 +84,7 @@ def revise_centroids(data, k, cluster_assignment):
         # Compute the mean of the data points. Fill in the blank (RHS only)
         centroid = member_data_points.mean(axis=0)
         new_centroids.append(centroid)
-    new_centroids = np.array(new_centroids)
-
-    return new_centroids
+    return np.array(new_centroids)
 
 
 def compute_heterogeneity(data, k, centroids, cluster_assignment):
@@ -176,22 +165,6 @@ def kmeans(
 
 
 # Mock test below
-if False:  # change to true to run this test case.
-    from sklearn import datasets as ds
-
-    dataset = ds.load_iris()
-    k = 3
-    heterogeneity = []
-    initial_centroids = get_initial_centroids(dataset["data"], k, seed=0)
-    centroids, cluster_assignment = kmeans(
-        dataset["data"],
-        k,
-        initial_centroids,
-        maxiter=400,
-        record_heterogeneity=heterogeneity,
-        verbose=True,
-    )
-    plot_heterogeneity(heterogeneity, k)
 
 
 def report_generator(
@@ -309,7 +282,7 @@ def report_generator(
     )  # concat report with cluster size and nan values
     report["Mark"] = report["Features"].isin(clustering_variables)
     cols = report.columns.tolist()
-    cols = cols[0:2] + cols[-1:] + cols[2:-1]
+    cols = cols[:2] + cols[-1:] + cols[2:-1]
     report = report[cols]
     sorter1 = {
         "ClusterSize": 9,

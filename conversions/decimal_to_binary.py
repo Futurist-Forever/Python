@@ -64,8 +64,8 @@ def decimal_to_binary_recursive_helper(decimal: int) -> str:
         ...
     ValueError: invalid literal for int() with base 10: 'number'
     """
-    decimal = int(decimal)
-    if decimal in (0, 1):  # Exit cases for the recursion
+    decimal = decimal
+    if decimal in {0, 1}:  # Exit cases for the recursion
         return str(decimal)
     div, mod = divmod(decimal, 2)
     return decimal_to_binary_recursive_helper(div) + str(mod)
@@ -91,7 +91,7 @@ def decimal_to_binary_recursive(number: str) -> str:
         ...
     ValueError: Input value is not an integer
     """
-    number = str(number).strip()
+    number = number.strip()
     if not number:
         raise ValueError("No input value was provided")
     negative = "-" if number.startswith("-") else ""

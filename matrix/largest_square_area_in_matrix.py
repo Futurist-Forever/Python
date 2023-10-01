@@ -137,11 +137,11 @@ def largest_square_area_in_matrix_bottom_up(
     largest_square_area = 0
     for row in range(rows - 1, -1, -1):
         for col in range(cols - 1, -1, -1):
-            right = dp_array[row][col + 1]
-            diagonal = dp_array[row + 1][col + 1]
-            bottom = dp_array[row + 1][col]
-
             if mat[row][col] == 1:
+                right = dp_array[row][col + 1]
+                diagonal = dp_array[row + 1][col + 1]
+                bottom = dp_array[row + 1][col]
+
                 dp_array[row][col] = 1 + min(right, diagonal, bottom)
                 largest_square_area = max(dp_array[row][col], largest_square_area)
             else:
@@ -167,11 +167,11 @@ def largest_square_area_in_matrix_bottom_up_space_optimization(
     largest_square_area = 0
     for row in range(rows - 1, -1, -1):
         for col in range(cols - 1, -1, -1):
-            right = current_row[col + 1]
-            diagonal = next_row[col + 1]
-            bottom = next_row[col]
-
             if mat[row][col] == 1:
+                right = current_row[col + 1]
+                diagonal = next_row[col + 1]
+                bottom = next_row[col]
+
                 current_row[col] = 1 + min(right, diagonal, bottom)
                 largest_square_area = max(current_row[col], largest_square_area)
             else:

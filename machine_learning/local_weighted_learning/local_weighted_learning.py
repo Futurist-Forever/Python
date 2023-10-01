@@ -92,11 +92,9 @@ def local_weight(
            [0.08272556]])
     """
     weight_mat = weight_matrix(point, x_train, tau)
-    weight = np.linalg.inv(x_train.T @ weight_mat @ x_train) @ (
+    return np.linalg.inv(x_train.T @ weight_mat @ x_train) @ (
         x_train.T @ weight_mat @ y_train.T
     )
-
-    return weight
 
 
 def local_weight_regression(

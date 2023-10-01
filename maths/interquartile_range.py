@@ -25,9 +25,7 @@ def find_median(nums: list[int | float]) -> float:
     2.65
     """
     div, mod = divmod(len(nums), 2)
-    if mod:
-        return nums[div]
-    return (nums[div] + nums[(div) - 1]) / 2
+    return nums[div] if mod else (nums[div] + nums[(div) - 1]) / 2
 
 
 def interquartile_range(nums: list[int | float]) -> float:

@@ -56,7 +56,7 @@ def is_spain_national_id(spanish_id: str) -> bool:
         raise ValueError(NUMBERS_PLUS_LETTER)
 
     try:
-        number = int(spanish_id_clean[0:8])
+        number = int(spanish_id_clean[:8])
         letter = spanish_id_clean[8]
     except ValueError as ex:
         raise ValueError(NUMBERS_PLUS_LETTER) from ex

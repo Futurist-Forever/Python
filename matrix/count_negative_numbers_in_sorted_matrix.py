@@ -93,8 +93,8 @@ def count_negatives_binary_search(grid: list[list[int]]) -> int:
     total = 0
     bound = len(grid[0])
 
-    for i in range(len(grid)):
-        bound = find_negative_index(grid[i][:bound])
+    for item in grid:
+        bound = find_negative_index(item[:bound])
         total += bound
     return (len(grid) * len(grid[0])) - total
 

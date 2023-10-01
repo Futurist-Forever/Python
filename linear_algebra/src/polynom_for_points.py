@@ -28,7 +28,7 @@ def points_to_polynomial(coordinates: list[list[int]]) -> str:
     >>> print(points_to_polynomial([[1, 5], [2, 2], [3, 9]]))
     f(x)=x^2*5.0+x^1*-18.0+x^0*18.0
     """
-    if len(coordinates) == 0 or not all(len(pair) == 2 for pair in coordinates):
+    if not coordinates or any(len(pair) != 2 for pair in coordinates):
         raise ValueError("The program cannot work out a fitting polynomial.")
 
     if len({tuple(pair) for pair in coordinates}) != len(coordinates):

@@ -96,11 +96,11 @@ class QueueByTwoStacks(Generic[_T]):
         IndexError: Queue is empty
         """
 
-        # To reduce number of attribute look-ups in `while` loop.
-        stack1_pop = self._stack1.pop
-        stack2_append = self._stack2.append
-
         if not self._stack2:
+            # To reduce number of attribute look-ups in `while` loop.
+            stack1_pop = self._stack1.pop
+            stack2_append = self._stack2.append
+
             while self._stack1:
                 stack2_append(stack1_pop())
 

@@ -49,7 +49,7 @@ def _msd_radix_sort(list_of_ints: list[int], bit_position: int) -> list[int]:
     >>> _msd_radix_sort([10, 4, 12], 2)
     [4, 12, 10]
     """
-    if bit_position == 0 or len(list_of_ints) in [0, 1]:
+    if bit_position == 0 or len(list_of_ints) in {0, 1}:
         return list_of_ints
 
     zeros = []

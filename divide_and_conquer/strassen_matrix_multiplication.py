@@ -9,11 +9,16 @@ def default_matrix_multiplication(a: list, b: list) -> list:
     """
     if len(a) != 2 or len(a[0]) != 2 or len(b) != 2 or len(b[0]) != 2:
         raise Exception("Matrices are not 2x2")
-    new_matrix = [
-        [a[0][0] * b[0][0] + a[0][1] * b[1][0], a[0][0] * b[0][1] + a[0][1] * b[1][1]],
-        [a[1][0] * b[0][0] + a[1][1] * b[1][0], a[1][0] * b[0][1] + a[1][1] * b[1][1]],
+    return [
+        [
+            a[0][0] * b[0][0] + a[0][1] * b[1][0],
+            a[0][0] * b[0][1] + a[0][1] * b[1][1],
+        ],
+        [
+            a[1][0] * b[0][0] + a[1][1] * b[1][0],
+            a[1][0] * b[0][1] + a[1][1] * b[1][1],
+        ],
     ]
-    return new_matrix
 
 
 def matrix_addition(matrix_a: list, matrix_b: list):
@@ -95,12 +100,8 @@ def actual_strassen(matrix_a: list, matrix_b: list) -> list:
     bot_left = matrix_addition(t3, t4)
     bot_right = matrix_subtraction(matrix_subtraction(matrix_addition(t1, t5), t3), t7)
 
-    # construct the new matrix from our 4 quadrants
-    new_matrix = []
-    for i in range(len(top_right)):
-        new_matrix.append(top_left[i] + top_right[i])
-    for i in range(len(bot_right)):
-        new_matrix.append(bot_left[i] + bot_right[i])
+    new_matrix = [top_left[i] + top_right[i] for i in range(len(top_right))]
+    new_matrix.extend(bot_left[i] + bot_right[i] for i in range(len(bot_right)))
     return new_matrix
 
 

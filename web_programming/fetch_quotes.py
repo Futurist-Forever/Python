@@ -14,11 +14,11 @@ API_ENDPOINT_URL = "https://zenquotes.io/api"
 
 
 def quote_of_the_day() -> list:
-    return requests.get(API_ENDPOINT_URL + "/today").json()
+    return requests.get(f"{API_ENDPOINT_URL}/today").json()
 
 
 def random_quotes() -> list:
-    return requests.get(API_ENDPOINT_URL + "/random").json()
+    return requests.get(f"{API_ENDPOINT_URL}/random").json()
 
 
 if __name__ == "__main__":

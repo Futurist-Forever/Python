@@ -201,7 +201,7 @@ def audio_frames(
     hop_size = np.round(sample_rate * hop_length / 1000).astype(int)
 
     # Pad the audio signal to handle edge cases
-    audio = np.pad(audio, int(ftt_size / 2), mode="reflect")
+    audio = np.pad(audio, ftt_size // 2, mode="reflect")
 
     # Calculate the number of frames
     frame_count = int((len(audio) - ftt_size) / hop_size) + 1
@@ -364,7 +364,7 @@ def get_filters(filter_points: np.ndarray, ftt_size: int) -> np.ndarray:
     (4, 257)
     """
     num_filters = len(filter_points) - 2
-    filters = np.zeros((num_filters, int(ftt_size / 2) + 1))
+    filters = np.zeros((num_filters, ftt_size // 2 + 1))
 
     for n in range(num_filters):
         start = filter_points[n]

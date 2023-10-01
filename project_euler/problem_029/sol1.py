@@ -37,7 +37,7 @@ def solution(n: int = 100) -> int:
 
     current_pow = 0
 
-    n = n + 1  # maximum limit
+    n += 1
 
     for a in range(2, n):
         for b in range(2, n):

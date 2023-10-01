@@ -133,7 +133,7 @@ def _plugboard(pbstring: str) -> dict[str, str]:
     elif len(pbstring) % 2 != 0:
         msg = f"Odd number of symbols ({len(pbstring)})"
         raise Exception(msg)
-    elif pbstring == "":
+    elif not pbstring:
         return {}
 
     pbstring.replace(" ", "")

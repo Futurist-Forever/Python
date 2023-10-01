@@ -30,8 +30,7 @@ def alternative_password_generator(chars_incl: str, i: int) -> str:
     # random_character FUNCTIONS
     # Put your code here...
     i -= len(chars_incl)
-    quotient = i // 3
-    remainder = i % 3
+    quotient, remainder = divmod(i, 3)
     # chars = chars_incl + random_letters(ascii_letters, i / 3 + remainder) +
     #     random_number(digits, i / 3) + random_characters(punctuation, i / 3)
     chars = (

@@ -41,11 +41,10 @@ def is_prime(number: int) -> bool:
         # Negatives, 0, 1, all even numbers, all multiples of 3 are not primes
         return False
 
-    # All primes number are in format of 6k +/- 1
-    for i in range(5, int(math.sqrt(number) + 1), 6):
-        if number % i == 0 or number % (i + 2) == 0:
-            return False
-    return True
+    return not any(
+        number % i == 0 or number % (i + 2) == 0
+        for i in range(5, int(math.sqrt(number) + 1), 6)
+    )
 
 
 def solution(nth: int = 10001) -> int:
@@ -85,7 +84,7 @@ def solution(nth: int = 10001) -> int:
     """
 
     try:
-        nth = int(nth)
+        nth = nth
     except (TypeError, ValueError):
         raise TypeError("Parameter nth must be int or castable to int.") from None
     if nth <= 0:
@@ -95,10 +94,8 @@ def solution(nth: int = 10001) -> int:
     while len(primes) < nth:
         if is_prime(num):
             primes.append(num)
-            num += 1
-        else:
-            num += 1
-    return primes[len(primes) - 1]
+        num += 1
+    return primes[-1]
 
 
 if __name__ == "__main__":

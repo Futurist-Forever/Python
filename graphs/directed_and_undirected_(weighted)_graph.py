@@ -36,12 +36,10 @@ class DirectedGraph:
     def dfs(self, s=-2, d=-1):
         if s == d:
             return []
-        stack = []
-        visited = []
         if s == -2:
             s = next(iter(self.graph))
-        stack.append(s)
-        visited.append(s)
+        stack = [s]
+        visited = [s]
         ss = s
 
         while True:
@@ -62,13 +60,13 @@ class DirectedGraph:
             # check if all the children are visited
             if s == ss:
                 stack.pop()
-                if len(stack) != 0:
-                    s = stack[len(stack) - 1]
+                if stack:
+                    s = stack[-1]
             else:
                 s = ss
 
             # check if se have reached the starting point
-            if len(stack) == 0:
+            if not stack:
                 return visited
 
     # c is the count of nodes you want and if you leave it or pass -1 to the function
@@ -85,11 +83,10 @@ class DirectedGraph:
 
     def bfs(self, s=-2):
         d = deque()
-        visited = []
         if s == -2:
             s = next(iter(self.graph))
         d.append(s)
-        visited.append(s)
+        visited = [s]
         while d:
             s = d.popleft()
             if len(self.graph[s]) != 0:
@@ -111,12 +108,10 @@ class DirectedGraph:
         return len(self.graph[u])
 
     def topological_sort(self, s=-2):
-        stack = []
-        visited = []
         if s == -2:
             s = next(iter(self.graph))
-        stack.append(s)
-        visited.append(s)
+        stack = [s]
+        visited = [s]
         ss = s
         sorted_nodes = []
 
@@ -134,21 +129,19 @@ class DirectedGraph:
             # check if all the children are visited
             if s == ss:
                 sorted_nodes.append(stack.pop())
-                if len(stack) != 0:
-                    s = stack[len(stack) - 1]
+                if stack:
+                    s = stack[-1]
             else:
                 s = ss
 
             # check if se have reached the starting point
-            if len(stack) == 0:
+            if not stack:
                 return sorted_nodes
 
     def cycle_nodes(self):
-        stack = []
-        visited = []
         s = next(iter(self.graph))
-        stack.append(s)
-        visited.append(s)
+        stack = [s]
+        visited = [s]
         parent = -2
         indirect_parents = []
         ss = s
@@ -184,8 +177,8 @@ class DirectedGraph:
             if s == ss:
                 stack.pop()
                 on_the_way_back = True
-                if len(stack) != 0:
-                    s = stack[len(stack) - 1]
+                if stack:
+                    s = stack[-1]
             else:
                 on_the_way_back = False
                 indirect_parents.append(parent)
@@ -193,15 +186,13 @@ class DirectedGraph:
                 s = ss
 
             # check if se have reached the starting point
-            if len(stack) == 0:
+            if not stack:
                 return list(anticipating_nodes)
 
     def has_cycle(self):
-        stack = []
-        visited = []
         s = next(iter(self.graph))
-        stack.append(s)
-        visited.append(s)
+        stack = [s]
+        visited = [s]
         parent = -2
         indirect_parents = []
         ss = s
@@ -221,11 +212,10 @@ class DirectedGraph:
                     ):
                         len_stack_minus_one = len(stack) - 1
                         while len_stack_minus_one >= 0:
-                            if stack[len_stack_minus_one] == node[1]:
-                                anticipating_nodes.add(node[1])
-                                break
-                            else:
+                            if stack[len_stack_minus_one] != node[1]:
                                 return True
+                            anticipating_nodes.add(node[1])
+                            break
                     if visited.count(node[1]) < 1:
                         stack.append(node[1])
                         visited.append(node[1])
@@ -236,8 +226,8 @@ class DirectedGraph:
             if s == ss:
                 stack.pop()
                 on_the_way_back = True
-                if len(stack) != 0:
-                    s = stack[len(stack) - 1]
+                if stack:
+                    s = stack[-1]
             else:
                 on_the_way_back = False
                 indirect_parents.append(parent)
@@ -245,7 +235,7 @@ class DirectedGraph:
                 s = ss
 
             # check if se have reached the starting point
-            if len(stack) == 0:
+            if not stack:
                 return False
 
     def dfs_time(self, s=-2, e=-1):
@@ -302,12 +292,10 @@ class Graph:
     def dfs(self, s=-2, d=-1):
         if s == d:
             return []
-        stack = []
-        visited = []
         if s == -2:
             s = next(iter(self.graph))
-        stack.append(s)
-        visited.append(s)
+        stack = [s]
+        visited = [s]
         ss = s
 
         while True:
@@ -328,13 +316,13 @@ class Graph:
             # check if all the children are visited
             if s == ss:
                 stack.pop()
-                if len(stack) != 0:
-                    s = stack[len(stack) - 1]
+                if stack:
+                    s = stack[-1]
             else:
                 s = ss
 
             # check if se have reached the starting point
-            if len(stack) == 0:
+            if not stack:
                 return visited
 
     # c is the count of nodes you want and if you leave it or pass -1 to the function
@@ -351,11 +339,10 @@ class Graph:
 
     def bfs(self, s=-2):
         d = deque()
-        visited = []
         if s == -2:
             s = next(iter(self.graph))
         d.append(s)
-        visited.append(s)
+        visited = [s]
         while d:
             s = d.popleft()
             if len(self.graph[s]) != 0:
@@ -369,11 +356,9 @@ class Graph:
         return len(self.graph[u])
 
     def cycle_nodes(self):
-        stack = []
-        visited = []
         s = next(iter(self.graph))
-        stack.append(s)
-        visited.append(s)
+        stack = [s]
+        visited = [s]
         parent = -2
         indirect_parents = []
         ss = s
@@ -409,8 +394,8 @@ class Graph:
             if s == ss:
                 stack.pop()
                 on_the_way_back = True
-                if len(stack) != 0:
-                    s = stack[len(stack) - 1]
+                if stack:
+                    s = stack[-1]
             else:
                 on_the_way_back = False
                 indirect_parents.append(parent)
@@ -418,15 +403,13 @@ class Graph:
                 s = ss
 
             # check if se have reached the starting point
-            if len(stack) == 0:
+            if not stack:
                 return list(anticipating_nodes)
 
     def has_cycle(self):
-        stack = []
-        visited = []
         s = next(iter(self.graph))
-        stack.append(s)
-        visited.append(s)
+        stack = [s]
+        visited = [s]
         parent = -2
         indirect_parents = []
         ss = s
@@ -446,11 +429,10 @@ class Graph:
                     ):
                         len_stack_minus_one = len(stack) - 1
                         while len_stack_minus_one >= 0:
-                            if stack[len_stack_minus_one] == node[1]:
-                                anticipating_nodes.add(node[1])
-                                break
-                            else:
+                            if stack[len_stack_minus_one] != node[1]:
                                 return True
+                            anticipating_nodes.add(node[1])
+                            break
                     if visited.count(node[1]) < 1:
                         stack.append(node[1])
                         visited.append(node[1])
@@ -461,8 +443,8 @@ class Graph:
             if s == ss:
                 stack.pop()
                 on_the_way_back = True
-                if len(stack) != 0:
-                    s = stack[len(stack) - 1]
+                if stack:
+                    s = stack[-1]
             else:
                 on_the_way_back = False
                 indirect_parents.append(parent)
@@ -470,7 +452,7 @@ class Graph:
                 s = ss
 
             # check if se have reached the starting point
-            if len(stack) == 0:
+            if not stack:
                 return False
 
     def all_nodes(self):

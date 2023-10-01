@@ -140,7 +140,7 @@ def reverse_bwt(bwt_string: str, idx_original_string: int) -> str:
     if not bwt_string:
         raise ValueError("The parameter bwt_string must not be empty.")
     try:
-        idx_original_string = int(idx_original_string)
+        idx_original_string = idx_original_string
     except ValueError:
         raise TypeError(
             "The parameter idx_original_string type must be int or passive"

@@ -104,10 +104,7 @@ class LinkedList:
         """
         if not 0 <= index < len(self):
             raise ValueError("list index out of range.")
-        for i, node in enumerate(self):
-            if i == index:
-                return node
-        return None
+        return next((node for i, node in enumerate(self) if i == index), None)
 
     # Used to change the data of a particular node
     def __setitem__(self, index: int, data: Any) -> None:
@@ -349,7 +346,7 @@ def test_singly_linked_list() -> None:
     """
     linked_list = LinkedList()
     assert linked_list.is_empty() is True
-    assert str(linked_list) == ""
+    assert not str(linked_list)
 
     try:
         linked_list.delete_head()
@@ -378,11 +375,11 @@ def test_singly_linked_list() -> None:
     assert len(linked_list) == 9
     assert str(linked_list) == "->".join(str(i) for i in range(1, 10))
 
-    assert all(linked_list[i] == i + 1 for i in range(9)) is True
+    assert all(linked_list[i] == i + 1 for i in range(9))
 
     for i in range(9):
         linked_list[i] = -i
-    assert all(linked_list[i] == -i for i in range(9)) is True
+    assert all(linked_list[i] == -i for i in range(9))
 
     linked_list.reverse()
     assert str(linked_list) == "->".join(str(i) for i in range(-8, 1))

@@ -16,9 +16,7 @@ def sigmoid_function(value: float, deriv: bool = False) -> float:
     >>> sigmoid_function(3.5, True)
     -8.75
     """
-    if deriv:
-        return value * (1 - value)
-    return 1 / (1 + math.exp(-value))
+    return value * (1 - value) if deriv else 1 / (1 + math.exp(-value))
 
 
 # Initial Value

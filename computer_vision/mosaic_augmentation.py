@@ -51,7 +51,7 @@ def main() -> None:
             obj = f"{anno[0]} {x_center} {y_center} {width} {height}"
             annos_list.append(obj)
         with open(f"{file_root}.txt", "w") as outfile:
-            outfile.write("\n".join(line for line in annos_list))
+            outfile.write("\n".join(annos_list))
 
 
 def get_dataset(label_dir: str, img_dir: str) -> tuple[list, list]:

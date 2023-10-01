@@ -41,14 +41,7 @@ def check(number: int) -> bool:
     for _ in range(9):
         check_last[int(number % 10)] = 1
         number = number // 10
-    # flag
-    f = True
-
-    # check last 9 numbers for pandigitality
-
-    for x in range(9):
-        if not check_last[x + 1]:
-            f = False
+    f = all(check_last[x + 1] for x in range(9))
     if not f:
         return f
 
@@ -88,15 +81,7 @@ def check1(number: int) -> bool:
     for _ in range(9):
         check_last[int(number % 10)] = 1
         number = number // 10
-    # flag
-    f = True
-
-    # check last 9 numbers for pandigitality
-
-    for x in range(9):
-        if not check_last[x + 1]:
-            f = False
-    return f
+    return all(check_last[x + 1] for x in range(9))
 
 
 def solution() -> int:
